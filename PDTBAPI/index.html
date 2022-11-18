@@ -1,0 +1,451 @@
+<HTML>
+<HEAD>
+<TITLE>PDTB API</TITLE>
+<STYLE TYPE="text/css">
+H1,H2,H3 {color:black}
+H4,H5 {color:black}
+A:link {color:blue}
+A:active {color:red}
+A:visited {color:blue}
+TD {vertical-align:top;border:1px solid #000000;text-align:left}
+B {color:blue}
+</STYLE>
+</HEAD>
+
+<BODY  BGCOLOR="#eeeeee" TEXT="#000000">
+<a href="../index.html">HOME</a>
+
+<hr>
+
+<H4>
+PDTB API (0.2.9)
+</H4>
+
+<p>
+This is an API to interact with the 
+<a href="http://www.seas.upenn.edu/~pdtb">Penn Discourse Treebank </a>, and
+<a href="http://www.cis.upenn.edu/~treebank">Penn Treebank</a> annotations. It
+provides:
+
+<ul>
+
+ <li> <a href="#browser">A Browser</a> - To browse and query the annotations,</li> 
+ <li> <a href="Annotator.html">The Annotator</a> <IMAGE src="NewYellow3.gif" width="30" height="20" /> - To create annotations with the new file format (6/29/10 - Added support for Tamil and Japanese),</li> 
+ <li> <a href="noptb.jar">A PTB-free Browser</a> <IMAGE src="NewYellow3.gif" width="30" height="20" /> - To view annotation files without the need for conversion or the PTB,</li> 
+  <li> <a href="Conversion.html">A Conversion Tool</a> <IMAGE src="NewYellow3.gif" width="30" height="20" /> - To convert between the old and new file formats,</li> 
+ <li> <a href="#xpathsupport">XPath support</a> -  To query the 
+annotations programmatically, and</li>
+ <li> <a href="#pdtbxpath">PDTBXPath</a> - A simple command line query interface to the PDTB</li>
+</ul>
+
+These are described below. See
+<a href="pdtb-annotation-manual.pdf"> the PDTB User Manual </a> for terminology and
+a description of the file formats expected. There are two distributions of 
+this API:
+
+<ol>
+<li>
+<a href="pdtbuser.zip"> The user distribution</a> - This should suffice for
+all needs that don't involve modifying source. To run the browser (also 
+avaliable as a Java&trade; Web Start application 
+<a href="pdtbbrowser.jnlp">here</a>), download and unzip. Then:
+
+<pre>
+cd PDTBUser
+java -jar pdtb.jar RawRoot PtbRoot PdtbRoot
+</pre>
+
+The locations RawRoot, PtbRoot, and PdtbRoot are described 
+<a href="fileformat.pdf"> here </a>. Alternatively, run:
+
+<pre>
+cd PDTBUser
+java -jar pdtb.jar
+</pre>
+
+And you will get "friendly" prompts for the directories. To program with it, 
+see <a href="docs/index.html">API docs</a>.
+<br/><br/>
+</li>
+
+<li>
+Older Distributions: <br/>
+<a href="pdtbuser1.zip"> The PDTB1 user distribution</a><br/>
+<a href="docs1/index.html"> The PDTB1 API docs</a>
+<br/><br/>
+</li>
+
+<li>
+<a href="pdtbdevel.zip"> The developer distribution</a> - If you need to
+modify the source. It contains Lex and Yacc specifications which should be
+reasonably easy to port for APIs in other languages. Also, if you have other
+classes which you want the PDTB annotation deserialized into, the
+Yacc specs will need to be modified. An
+<a href="http://ant.apache.org">Ant</a> build script is included.
+</li>
+</ol>
+
+By downloading this, you accept 
+<a href="license/license.html"> the license</a>.
+</p>
+
+<p>
+System requirements: Java&trade; 1.4.2. The API relies on Java&trade; for 
+platform independence. However, the portability of component graphics is not
+always seamless. We test mostly on Linux and marginally on Windows. Problems
+on other platforms cannot be supported.
+</p>
+
+<p>
+<b> Mac Users </b> - Pre 0.2.4 the bottom left window of the browser appears
+garbled under the default look and feel (Aqua). This can be fixed without upgrading 
+your version by running:
+
+<pre>
+cd PDTBUser
+java -Dswing.defaultlaf=javax.swing.plaf.metal.MetalLookAndFeel -jar pdtb.jar
+</pre>
+
+Version 0.2.4 uses this (Metal) look and feel.
+</p>
+
+<p>
+Questions/bugs etc:
+
+<pre>
+Contacts: Nikhil Dinesh - first name followed by d at seas dot upenn dot edu
+
+          Geraud Campion - first name followed by at seas dot upenn dot edu
+</pre>
+</p>
+
+<p>
+Change log:
+
+<ul>
+<li> 0.2 - Several bug fixes. Some add/delete operations in PTBTreeNode/PDTBNode were buggy. The tree canvas had some erroneous behaviour during mutation and when an expansion state isn't maintained. </li>
+<li> 0.2.1 - Bug fixes in PDTBXPath. Connectives weren't being sorted on output. Added a regexp function for PDTBXPath. </li>
+<li> 0.2.2 - Fixed a minor bug in the raw text attribute, an extra space was being prepended. Optimizations to the Penn Treebank 
+portion of the API. It is now 2-3 times faster. The convenience classes:
+<code> edu.upenn.cis.pdtb.util.PDTBTask</code> and <code> edu.upenn.cis.ptb.util.PTBTask</code> should simplify basic access
+patterns. Some example XPath queries are given <a href="#pdtbxpath">below</a>. </li>
+<li> 0.2.3 - Some more optimizations, with a two-fold speedup on the PTB side. Some syntactic sugar for the XPath queries, and
+a little bit of documentation on how to <a href="lpath.html">query the PTB</a>. The queries are now (perhaps) fast enough to be
+useful. Query times are discussed <a href="#xpathsupport">here</a>.</li>
+<li> 0.2.4 - Browser bug on Macs fixed. It seems to be a java problem, rather than one with our code base. The browser uses
+the Metal look and feel now. See note above to fix it without upgrading. </li>
+<li> 0.2.5 - Some extensions to the PDTBXPath tool, described <a href="xpathextensions.html">here</a>. Regression fixes to 
+<code>edu.upenn.cis.pdtb.xpath.PDTBNavigator</code> and <code>edu.upenn.cis.ptb.xpath.PTBNavigator</code></li>
+<li> 0.2.6 - Added the ability to cache XPath subexpressions on the PDTB, described <a href="xpathextensions.html">here</a>. Makes
+the extensions defined in 0.2.5 more efficient.</li>
+<li> 0.2.7 - Fixed a  bug in <code> edu.upenn.cis.ptb.util.CorpusFileIterator </code>. Used to cause an exception when the 
+Propbank parsed 
+<code>.cmb</code> files appear under PtbRoot. Added <code>Prev</code> and <code>Next</code> buttons to the browser.</code>
+<li> 0.2.8 - Added XPath functions to group explicit connectives into subordinating conjunctions, coordinating conjunctions and
+adverbials. Described <a href="xpathextensions.html">here</a>. A bug in the regex for subordinating conjunctions was fixed on
+03-27-2007 (not worth a new version number).</li>
+<li> 0.2.9 - Some of the span comparison functions were too rigid and crossing was incorrectly defined. Added functionality
+to state more approximate versions of span queries and corrected crossing. Added a split mode to the browser to compare
+connectives in the same discourse. </li>
+</ul>
+
+
+</p>
+
+<p>
+<a id="browser"><H5>The Browser</H5></a>
+
+<a href="pdtbbrowser.jnlp">Launch the PDTB Browser</a> via Java Web Start.
+<p>
+A screenshot of the browser (parse trees on the top, PDTB annotations
+bottom left, and the raw text on the bottom right) is given below. Arg1 is 
+highlighted in yellow, Arg2 in blue, the connective in red, and the features 
+associated with the connective can be seen on the bottom left.
+</p>
+
+<p>
+The bottom left window can be used to select connectives and arguments. Clicking
+on a connective shows the features associated. Double clicking toggles between
+showing and hiding the arguments. Clicking on an argument will show the features.
+The spans associated with attribution will be added in the second release of the PDTB, 
+and so clicking on the features has no effect.
+</p>
+
+<p>
+Nodes in the parse tree can
+be collapsed for viewing without scrolling. For example, the PP-LOC 
+node in Arg1 (in yellow) has been collapsed. Clicking on a parse tree node 
+toggles between expanding and collapsing. 
+</p>
+
+
+<p>
+The combo boxes (drop down lists) in the middle
+correspond to the section and file numbers (on the left and right respectively). Only files under
+PdtbRoot, which have associated files in PtbRoot, and RawRoot can be loaded 
+(the boxes will let you select only valid files). These are supplied as
+commandline arguments as mentioned above. When the Load button is
+clicked the files correponding to the section and file numbers selected in the
+combo boxes are loaded as a tab. The Close Tab button closes the tab currently
+in focus.
+</p>
+
+<p>
+The buttons Prev and Next switch to the previous and next files (if any) from the file denoted by
+the combo boxes. These buttons were added in v0.2.7.
+</p>
+
+
+<p>
+The button New Query brings up a <a href="query.html">Query Window</a>, allowing you to build a PDTBXPath search on the entire corpus. 
+</p>
+
+
+<br/>
+
+<br/>
+
+<IMAGE src="screenshot.jpg" width="1280" height="783" />
+
+</p>
+
+<p>
+<a id="xpathsupport"><H5> XPath Support </H5></a>
+
+The API supports 
+<a href="http://www.w3.org/TR/xpath">XPath</a> queries on the PDTB 
+annotations, and PTB annotations independently. For joint queries one needs to 
+query the PDTB, and use the results to query the PTB. XPath support is 
+achieved via 
+<a href="http://jaxen.sourceforge.net">Jaxen</a> (Jaxen is bundled with the distributions
+and a separate download is not required).
+</p>
+
+<p>
+This is not intended as a replacement for tgrep, or various other query tools
+written for the PTB. The mechanisms used here are significantly slower, 
+as each file will have to be queried independently. The advantage that this API offers 
+is a more accessible programming model.
+</p>
+
+<p>
+As of v0.2.3, the query
+speeds are about 4 times faster on average. The following queries
+were run (v0.2.3) on a machine with an Intel Pentium4 (at 2.4GHz, 1G memory) 
+processor, running Suse Linux (total counts of results were produced):
+
+<OL>
+<LI>
+<code>>::ExplicitRelation[@connHead='because']</code> (3secs without loading syntax, vmflags: -Xmx300M -Xms300M). This
+is equivalent to the XPath query <code>child::ExplicitRelation[@connHead='because']</code>
+</LI>
+<LI>
+<code> =>>::S/>::NP[->::VP]</code> (7secs, vmflags: -Xmx300M -Xms300M). This is equivalent to the XPath query
+<code>descendant-or-self::S/child::NP[following::VP]</code>
+</LI>
+</OL>
+
+We tested on 23 PTB queries (in the <a href="http://projects.ldc.upenn.edu/QLDB/lpath3.pdf">Bird et al.</a> paper), and 
+they take between 6-12secs. There is an implementation of Bird et al.'s
+extensions to XPath, and it is described briefly <a href="lpath.html">here</a>. We do not have a command line
+XPath interface to the PTB yet, some interface work is needed to facilitate browsing results. Contributions
+welcome. The command line XPath tool for the PDTB, and the syntactic sugar used are described <a href="#pdtbxpath">below</a>.
+</p>
+
+<p>
+See the <a href="docs/index.html">API docs</a> 
+of the following packages for more info:
+
+<pre>
+edu.upenn.cis.pdtb.xpath and edu.upenn.cis.ptb.xpath
+</pre>
+
+</p>
+
+<p>
+<a id="pdtbxpath"><H5>PDTBXPath</H5></a>
+
+ A simple top level query interface to the PDTB (examples are given toward the bottom of the
+page). Usage is as follows:
+ 
+ <pre>
+   cd PDTBUser
+   java -Xmx300M -Xms300M -classpath "pdtb.jar" edu.upenn.cis.pdtb.xpath.PDTBXPath args
+ </pre>
+ 
+ The arguments are as follows:
+ 
+ <pre>
+   --rawRoot RawRoot (or -r RawRoot)
+   --ptbRoot PtbRoot (or -p PtbRoot)
+   --pdtbRoot PdtbRoot (or -d PdtbRoot)
+   --outputRoot OutputRoot (or -o OutputRoot. This will serve as the result PdtbRoot.
+                            OutputRoot should not exist when this is run)
+   --xpath XPathExpression (or -x XPathExpression)
+   -c (generates total counts in addition to the files)
+   -b (opens results in the browser. The saved results can always be opened in
+       the browser at a later time, by specifying OutputRoot as the PdtbRoot 
+       argument to the browser.)
+  </pre>
+
+<p>
+Or modify <a href="run_query.txt">this Perl script</a> appropriately, and place it
+in the PDTBUser directory. Here is <a href="query_test.txt">another Perl script</a> with
+example queries, and <a href="xpath.pdf"> some slides </a> explaining the overall design.
+These files use the standard XPath syntax.
+</p>
+
+<p>
+We have added extensions to XPath specific to the PDTB. Since this a growing list, we
+have moved it to a separate <a href="xpathextensions.html"> PDTB XPath Extensions</a> page.
+Scripts containing example queries are now part of <a href="pdtbuser.zip"> the user distribution</a>.
+</p>
+
+<p>
+Users unfamiliar with Java should go 
+<a href="http://java.sun.com/docs/books/tutorial/getStarted/cupojava/">here</a> for a 
+tutorial on how to run Java programs. The most common error is setting the classpath wrong, 
+which results in output of the form: 
+</p>
+
+ <pre>
+  Exception in thread "main" java.lang.NoClassDefFoundError: edu.upenn.cis.pdtb.xpath.PDTBXPath
+ </pre> 
+
+<p>
+Please make sure that the classpath includes the "pdtb.jar" file in the PDTBUser directory.
+That is if you run the command from a directory other than PDTBUser the option should be
+specified as <EM> -classpath "....path to...pdtb.jar" </EM>.
+</p>
+
+<p>
+The XPath expression should select Element nodes listed below. If any other kind of node or 
+object is returned by the query, the program exits. The full XPath functionality can be 
+accessed via the API. The following is the list of Elements, their children, and attributes:
+
+</p> 
+  <TABLE border="1">
+  <COLGROUP>
+     <COL width="1" />
+     <COL width="2" />
+     <COL width="2" />
+  </COLGROUP>
+   <TR>
+  <TD>Element QName</TD><TD>Children QNames</TD><TD> Attribute QNames</TD>
+   </TR>
+ 
+  <TR>
+  <TD>RelationList</TD>
+  <TD>ExplicitRelation*, ImplicitRelation*, AltLexRelation*, EntityRelation*, NoRelation*</TD>
+  <TD></TD>
+  </TR>
+ 
+  <TR>
+  <TD>ExplicitRelation</TD>
+  <TD>Sup1?, Arg1, Arg2, Sup2?</TD>
+  <TD>Source, Type, Polarity, Det, connHead, sClassA, sClassB?, rawText</TD>
+  </TR>
+ 
+  <TR>
+  <TD>ImplicitRelation</TD>
+  <TD>Sup1?, Arg1, Arg2, Sup2?</TD>
+  <TD>Source, Type, Polarity, Det, conn1, sClass1A, sClass1B?, conn2?, sClass2A?, sClass2B?</TD>
+  </TR>
+ 
+  <TR>
+  <TD>AltLexRelation</TD>
+  <TD>Sup1?, Arg1, Arg2, Sup2?</TD>
+  <TD>Source, Type, Polarity, Det, sClassA, sClassB?, rawText</TD>
+  </TR>
+ 
+  <TR>
+  <TD>EntityRelation</TD>
+  <TD>Arg1, Arg2</TD>
+  <TD></TD>
+  </TR>
+ 
+ <TR>
+  <TD>NoRelation</TD>
+  <TD>Arg1, Arg2</TD>
+  <TD></TD>
+  </TR>
+ 
+  <TR>
+  <TD>Arg1</TD>
+  <TD></TD>
+  <TD>Source, Type, Polarity, Det, rawText</TD>
+  </TR>
+ 
+  <TR>
+  <TD>Arg2</TD>
+  <TD></TD>
+  <TD>Source, Type, Polarity, Det, rawText</TD>
+  </TR>
+ 
+  <TR>
+  <TD>Sup1</TD>
+  <TD></TD>
+  <TD>rawText</TD>
+  </TR>
+ 
+  <TR>
+  <TD>Sup2</TD>
+  <TD></TD>
+  <TD>rawText</TD>
+  </TR>
+ 
+   </TABLE>
+ 
+  <p>
+   Note that the Source, Type, Polarity, and Det attributes appear on all 
+   arguments except those of EntityRelation and NoRelation.
+  </p>
+ 
+  <p>
+  The expression <code>"//ExplicitRelation[@connHead='because']"</code> selects
+  all occurences of the explicit connective "because". The expression
+  <code>"//ImplicitRelation[@conn1='instead']"</code> selects all implicit relations
+  where "instead" is chosen as conn1. Note that the enclosing quotes are necessary on
+  the command line.
+  </p>
+ 
+  <p>
+  If an Element is selected by an expression, the closest ancestor (or the node
+   itself) which is a child of PDTBRelationList will be output. This is so that the
+  results can be loaded in the browser. If the -c option is specified total counts of
+  the number of objects selected is produced. This will usually be greater than or equal to the number
+  of relations saved in the OutputRoot.
+  </p>
+ 
+  <p>
+   Here is a sample command line invocation for the Bourne shell:
+ 
+   <pre>
+     cd PDTBUser
+     java -Xmx300M -Xms300M -classpath "pdtb.jar" edu.upenn.cis.pdtb.xpath.PDTBXPath \
+             -r Corpora/PTB/raw/wsj \
+             -p Corpora/PTB/combined/wsj \
+             -d Corpora/PDTB/pdtb/wsj \
+             -o Corpora/PDTB/PDTBImplicitBecause \
+             -x "//ImplicitRelation[@conn1 = 'because']" -c -b
+    </pre>
+ 
+  Note that the output directory specified by -o, should not exist prior to
+  invocation. 
+ 
+  </p>
+ 
+  <p>
+ 
+  See the <a href="http://www.w3.org/TR/xpath">XPath</a> recommendation for further
+  info on XPath. For querying the syntax as well, use the API.
+  </p>
+ 
+
+
+
+</p>
+
+</BODY>
+
+</HTML>

@@ -1,0 +1,692 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="style.css" type="text/css" />
+<script type="text/javascript" src="smoothscroll.js" ></script>
+<title>PDTB Annotator</title>
+</head>
+<body>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+  <td>
+  	<table id="header_department" width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="40"><img src="img/shield.gif" align="right"/></td>
+        <td align="left"><h4>&nbsp;University of Pennsylvania</h4></td>
+        <td width="450" height="39" background="img/college_hall.gif" style="background-repeat:no-repeat"><h5>Institute For Research in Cognitive Science</h5></td>
+      </tr>
+    </table>
+    <table id="header_logo" width="100%" border="0" cellspacing="0" cellpadding="0" background="img/wordcloud_5.gif">
+      <tr>
+        <td width="100%" height="150" />
+        <td><img src="img/pdtb.gif" align="right"/></td>
+        <!--style="white-space:nowrap"-->
+        <!--div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Penn Discourse Treebank&nbsp;<br />
+            PDTB&nbsp;</div-->
+      </tr>
+    </table>
+    <!--table id="nav" width="100%" cellpadding="0" cellspacing="0" bgcolor="#990000" align="center">                       
+      <tr>      
+      		<td width="150"></td>
+            <td><a href="index.html">Home</a></td>
+            <td><a href="people.html">People</a></td>
+            <td><a href="publications.html">Publications</a></td>
+            <td><a href="tools.html">Tools</a></td>
+            <td id="last_list_item"><a href="courses.html">Courses</a></td>
+            <td width="130"></td>
+      </tr>
+    </table-->
+  </td>
+</tr>
+  <tr>
+    <td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+
+<td width="150" height="39" background="img/wordcloud_7.gif"/>
+
+<td width="39" height="39" background="img/topleft.gif"/>
+<td height="39" background="img/top.gif" style="background-repeat:repeat-x"/>
+<td width="39" height="39" background="img/topright.gif"/>
+
+<td width="130" rowspan="3" background="img/wordcloud_8.gif" style="background-position:right bottom"/>
+
+</tr>
+        <tr>
+          <td id="left" rowspan="2" background="img/wordcloud_9.gif" style="background-position:left bottom"><table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td width="39" height="39" background="img/menu_topleft.gif"/>
+      <td width="72" height="39" background="img/menu_top.gif" style="background-repeat:repeat-x"/>
+      <td width="39" height="39" background="img/menu_topright.gif"/>
+    </tr>
+    <tr>
+      <td width="39" background="img/menu_left.gif" style="background-repeat:repeat-y"/>
+      <td id="menu" width="72"><ul class="ul0">
+          <li class="li0"><a href="index.html">Home</a></li>
+          <li class="li0"><a href="people.html">People</a></li>
+          <li class="li0"><a href="publications.html">Publications</a></li>
+          <li class="li0"><a href="tools.html">Tools</a></li>
+          <li class="li0"><a href="bibliography-year.html">Bibliography</a></li>
+          <li class="li0"><a href="events.html">Events</a></li>
+        </ul></td>
+      <td width="39" background="img/menu_right.gif" style="background-repeat:repeat-y"/>
+    </tr>
+    <tr>
+      <td width="39" height="39" background="img/menu_bottomleft.gif"/>
+      <td width="72" height="39" background="img/menu_bottom.gif" style="background-repeat:repeat-x"/>
+      <td width="39" height="39" background="img/menu_bottomright.gif"/>
+    </tr>
+  </table></td>
+<td width="39" background="img/left.gif" style="background-repeat:repeat-y"/>
+
+          <td id="center"><!-----------------------------------CONTENT BEGINS HERE------------------------------------------>
+
+								<h2 align="center">PDTB 2.0 TOOLS AND DOCUMENTATION</h2>
+								
+								<p>
+								</p>
+								<ul>
+																	<li><a href="#browser"><b>The PDTB Browser</b></a> - For browsing and querying the annotations
+										<ul>
+											<li><a href="PDTBAPI/pdtbuser.zip">Binary</a></li>
+											<li><a href="PDTBAPI/pdtbdevel.zip">Source</a></li>
+											<li><a href="PDTBAPI/pdtbbrowser.jnlp">Java&#8482; Web Start application</a></li>
+											<li><a href="#query">Graphical Query support</a></li>
+											<li> <a href="#xpathsupport">XPath support</a> -  To query the annotations programmatically</li>
+											<li> <a href="#pdtbxpath">PDTBXPath</a> - A simple command line query interface to the PDTB</li>
+											<li> <a href="PDTBAPI/pdtb-annotation-manual.pdf">The PDTB User Manual</a></li>
+											<li><a href="PDTBAPI/fileformat.pdf"> The locations RawRoot, PtbRoot, and PdtbRoot are described here.</a></li>
+											<li><a href="PDTBAPI/docs/index.html">API docs</a></li>
+											<li>Older Distributions
+												<ul>
+													<li><a href="PDTBAPI/pdtbuser1.zip"> The PDTB1 user distribution</a></li>
+													<li><a href="PDTBAPI/docs1/index.html"> The PDTB1 API docs</a></li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+									<!--
+									<li><a href="#annotator"><b>The Annotator</b></a> - For creating annotations with the new file format (6/29/10 - Added support for Tamil and Japanese)
+										<ul>
+											<li><a href="PDTBAPI/Annotator-bin.zip">Binary</a></li>
+											<li><a href="PDTBAPI/Annotator-src.zip">Source</a></li>
+										</ul>
+									</li>
+									<li><a href="#adjudicator"><b>The Adjudicator</b></a> - For adjudicating annotations
+										<ul>
+											<li><a href="PDTBAPI/Annotator-bin.zip">Binary</a></li>
+											<li><a href="PDTBAPI/Annotator-src.zip">Source</a></li>
+										</ul>
+									</li>	-->								
+									<li><a href="#noptb"><b>The PTB-Free Browser</b></a> - For viewing annotation files without the need for conversion or the PTB
+										<ul>
+											<li><a href="PDTBAPI/noptb.jar">Binary</a></li>
+										</ul>
+									</li>
+									<li><a href="#conversion"><b>The Conversion Tool</b></a> - For converting between the old and new file formats
+										<ul>
+											<li><a href="PDTBAPI/Conversion-bin.zip">Binary</a></li>
+											<li><a href="PDTBAPI/Conversion-src.zip">Source</a></li>
+										</ul>
+									</li>
+								</ul>
+								<hr/>
+
+								<a name="browser" id="browser"></a>
+								<h3>The Browser / API (0.2.9)</h3>
+								<p> This is an API to interact with the <a href="http://www.seas.upenn.edu/~pdtb">Penn Discourse Treebank </a>, and <a href="http://www.cis.upenn.edu/~treebank">Penn Treebank</a> annotations.
+
+      See <a href="PDTBAPI/pdtb-annotation-manual.pdf"> the PDTB User Manual </a> for terminology and
+      a description of the file formats expected. There are two distributions of 
+      this API:
+									<ol>
+										<li> <a href="PDTBAPI/pdtbuser.zip"> The user distribution</a> - This should suffice for
+        all needs that don't involve modifying source. To run the browser (also 
+        avaliable as a Java&#8482; Web Start application <a href="PDTBAPI/pdtbbrowser.jnlp">here</a>), download and unzip. Then:
+											<pre>
+cd PDTBUser
+java -jar pdtb.jar RawRoot PtbRoot PdtbRoot
+											</pre>
+        The locations RawRoot, PtbRoot, and PdtbRoot are described <a href="PDTBAPI/fileformat.pdf"> here </a>. Alternatively, run:
+											<pre>
+cd PDTBUser
+java -jar pdtb.jar
+											</pre>
+        And you will get "friendly" prompts for the directories. To program with it, 
+        see <a href="PDTBAPI/docs/index.html">API docs</a>. <br/>
+											<br/>
+										</li>
+										<li> Older Distributions: <br/>
+											<a href="PDTBAPI/pdtbuser1.zip"> The PDTB1 user distribution</a><br/>
+											<a href="PDTBAPI/docs1/index.html"> The PDTB1 API docs</a> <br/>
+											<br/>
+										</li>
+										<li> <a href="PDTBAPI/pdtbdevel.zip"> The developer distribution</a> - If you need to
+        modify the source. It contains Lex and Yacc specifications which should be
+        reasonably easy to port for APIs in other languages. Also, if you have other
+        classes which you want the PDTB annotation deserialized into, the
+        Yacc specs will need to be modified. An <a href="http://ant.apache.org">Ant</a> build script is included. </li>
+									</ol>
+    By downloading this, you accept <a href="PDTBAPI/license/license.html"> the license</a>.
+								</p>
+								<p> System requirements: Java&#8482; 1.4.2. The API relies on Java&#8482; for 
+      platform independence. However, the portability of component graphics is not
+      always seamless. We test mostly on Linux and marginally on Windows. Problems
+      on other platforms cannot be supported. </p>
+								<p> Mac Users - Pre 0.2.4 the bottom left window of the browser appears
+      garbled under the default look and feel (Aqua). This can be fixed without upgrading 
+      your version by running:
+									<pre>
+cd PDTBUser
+java -Dswing.defaultlaf=javax.swing.plaf.metal.MetalLookAndFeel -jar pdtb.jar
+									</pre>
+    Version 0.2.4 uses this (Metal) look and feel.
+								</p>
+								<p> Questions/bugs etc:
+									<pre>
+Contacts: Nikhil Dinesh - first name followed by d at seas dot upenn dot edu
+
+          Geraud Campion - first name followed by at seas dot upenn dot edu
+									</pre>
+								</p>
+								<p> Change log:
+									<ul>
+										<li> 0.2 - Several bug fixes. Some add/delete operations in PTBTreeNode/PDTBNode were buggy. The tree canvas had some erroneous behaviour during mutation and when an expansion state isn't maintained. </li>
+										<li> 0.2.1 - Bug fixes in PDTBXPath. Connectives weren't being sorted on output. Added a regexp function for PDTBXPath. </li>
+										<li> 0.2.2 - Fixed a minor bug in the raw text attribute, an extra space was being prepended. Optimizations to the Penn Treebank 
+        portion of the API. It is now 2-3 times faster. The convenience classes: <code> edu.upenn.cis.pdtb.util.PDTBTask</code> and <code> edu.upenn.cis.ptb.util.PTBTask</code> should simplify basic access
+        patterns. Some example XPath queries are given <a href="#pdtbxpath">below</a>. </li>
+										<li> 0.2.3 - Some more optimizations, with a two-fold speedup on the PTB side. Some syntactic sugar for the XPath queries, and
+        a little bit of documentation on how to <a href="PDTBAPI/lpath.html">query the PTB</a>. The queries are now (perhaps) fast enough to be
+        useful. Query times are discussed <a href="#xpathsupport">here</a>.</li>
+										<li> 0.2.4 - Browser bug on Macs fixed. It seems to be a java problem, rather than one with our code base. The browser uses
+        the Metal look and feel now. See note above to fix it without upgrading. </li>
+										<li> 0.2.5 - Some extensions to the PDTBXPath tool, described <a href="PDTBAPI/xpathextensions.html">here</a>. Regression fixes to <code>edu.upenn.cis.pdtb.xpath.PDTBNavigator</code> and <code>edu.upenn.cis.ptb.xpath.PTBNavigator</code></li>
+										<li> 0.2.6 - Added the ability to cache XPath subexpressions on the PDTB, described <a href="PDTBAPI/xpathextensions.html">here</a>. Makes
+        the extensions defined in 0.2.5 more efficient.</li>
+										<li> 0.2.7 - Fixed a  bug in <code> edu.upenn.cis.ptb.util.CorpusFileIterator </code>. Used to cause an exception when the 
+        Propbank parsed <code>.cmb</code> files appear under PtbRoot. Added <code>Prev</code> and <code>Next</code> buttons to the browser.</li>
+										<li> 0.2.8 - Added XPath functions to group explicit connectives into subordinating conjunctions, coordinating conjunctions and
+        adverbials. Described <a href="PDTBAPI/xpathextensions.html">here</a>. A bug in the regex for subordinating conjunctions was fixed on
+        03-27-2007 (not worth a new version number).</li>
+										<li> 0.2.9 - Some of the span comparison functions were too rigid and crossing was incorrectly defined. Added functionality
+        to state more approximate versions of span queries and corrected crossing. Added a split mode to the browser to compare
+        connectives in the same discourse. </li>
+									</ul>
+								</p>
+								<p>
+									<a href="PDTBAPI/pdtbbrowser.jnlp">Launch the PDTB Browser</a> via Java Web Start.</p>
+								<p> A screenshot of the browser (parse trees on the top, PDTB annotations
+      bottom left, and the raw text on the bottom right) is given below. Arg1 is 
+      highlighted in yellow, Arg2 in blue, the connective in red, and the features 
+      associated with the connective can be seen on the bottom left. </p>
+								<p> The bottom left window can be used to select connectives and arguments. Clicking
+      on a connective shows the features associated. Double clicking toggles between
+      showing and hiding the arguments. Clicking on an argument will show the features.
+      The spans associated with attribution will be added in the second release of the PDTB, 
+      and so clicking on the features has no effect. </p>
+								<p> Nodes in the parse tree can
+      be collapsed for viewing without scrolling. For example, the PP-LOC 
+      node in Arg1 (in yellow) has been collapsed. Clicking on a parse tree node 
+      toggles between expanding and collapsing. </p>
+								<p> The combo boxes (drop down lists) in the middle
+      correspond to the section and file numbers (on the left and right respectively). Only files under
+      PdtbRoot, which have associated files in PtbRoot, and RawRoot can be loaded 
+      (the boxes will let you select only valid files). These are supplied as
+      commandline arguments as mentioned above. When the Load button is
+      clicked the files correponding to the section and file numbers selected in the
+      combo boxes are loaded as a tab. The Close Tab button closes the tab currently
+      in focus. </p>
+								<p> The buttons Prev and Next switch to the previous and next files (if any) from the file denoted by
+      the combo boxes. These buttons were added in v0.2.7. </p>
+								<br/>
+								<br/>
+								<img src="PDTBAPI/screenshot.jpg" width="880" />
+								<div id="to_top" align="right"><a href="#center">To top</a><br/>
+								</div>
+								<hr id="thick_line"/>
+								<a name="query" id="query"></a>
+								<h4>Graphical Query Support</h4>
+    The button New Query brings up a Query Window, allowing you to build a PDTBXPath search on the entire corpus. Here is a screenshot.
+								<br/>
+								<br/>
+								<img src="PDTBAPI/queryscreenshot.jpg" width="880" height="716" />
+								<div id="to_top" align="right"><a href="#center">To top</a><br/>
+								</div>
+								<hr id="thick_line"/>
+								<p> <a name="xpathsupport"></a>
+									<H4>XPath Support </H4>
+    The API supports <a href="http://www.w3.org/TR/xpath">XPath</a> queries on the PDTB 
+    annotations, and PTB annotations independently. For joint queries one needs to 
+    query the PDTB, and use the results to query the PTB. XPath support is 
+    achieved via <a href="http://jaxen.sourceforge.net">Jaxen</a> (Jaxen is bundled with the distributions
+    and a separate download is not required).
+								</p>
+								<p> This is not intended as a replacement for tgrep, or various other query tools
+      written for the PTB. The mechanisms used here are significantly slower, 
+      as each file will have to be queried independently. The advantage that this API offers 
+      is a more accessible programming model. </p>
+								<p> As of v0.2.3, the query
+      speeds are about 4 times faster on average. The following queries
+      were run (v0.2.3) on a machine with an Intel Pentium4 (at 2.4GHz, 1G memory) 
+      processor, running Suse Linux (total counts of results were produced):
+									<OL>
+										<LI> <code>>::ExplicitRelation[@connHead='because']</code> (3secs without loading syntax, vmflags: -Xmx300M -Xms300M). This
+        is equivalent to the XPath query <code>child::ExplicitRelation[@connHead='because']</code> </LI>
+									<LI> <code> =>>::S/>::NP[->::VP]</code> (7secs, vmflags: -Xmx300M -Xms300M). This is equivalent to the XPath query <code>descendant-or-self::S/child::NP[following::VP]</code> </LI>
+			</OL>
+    We tested on 23 PTB queries (in the <a href="http://projects.ldc.upenn.edu/QLDB/lpath3.pdf">Bird et al.</a> paper), and 
+    they take between 6-12secs. There is an implementation of Bird et al.'s
+    extensions to XPath, and it is described briefly <a href="PDTBAPI/lpath.html">here</a>. We do not have a command line
+    XPath interface to the PTB yet, some interface work is needed to facilitate browsing results. Contributions
+    welcome. The command line XPath tool for the PDTB, and the syntactic sugar used are described <a href="#pdtbxpath">below</a>.
+		</p>
+		<p> See the <a href="PDTBAPI/docs/index.html">API docs</a> of the following packages for more info:
+			<pre>
+edu.upenn.cis.pdtb.xpath and edu.upenn.cis.ptb.xpath
+			</pre>
+		</p>
+		<div id="to_top" align="right"><a href="#center">To top</a><br/>
+		</div>
+		<hr id="thick_line"/>
+		<p> <a name="pdtbxpath"></a>
+			<H4>PDTBXPath</H4>
+    A simple top level query interface to the PDTB (examples are given toward the bottom of the
+    page). Usage is as follows:
+			<pre>
+   cd PDTBUser
+   java -Xmx300M -Xms300M -classpath &quot;pdtb.jar&quot; edu.upenn.cis.pdtb.xpath.PDTBXPath args
+			</pre>
+    The arguments are as follows:
+			<pre>
+   --rawRoot RawRoot (or -r RawRoot)
+   --ptbRoot PtbRoot (or -p PtbRoot)
+   --pdtbRoot PdtbRoot (or -d PdtbRoot)
+   --outputRoot OutputRoot (or -o OutputRoot. This will serve as the result PdtbRoot.
+                            OutputRoot should not exist when this is run)
+   --xpath XPathExpression (or -x XPathExpression)
+   -c (generates total counts in addition to the files)
+   -b (opens results in the browser. The saved results can always be opened in
+       the browser at a later time, by specifying OutputRoot as the PdtbRoot 
+       argument to the browser.)
+			</pre>
+			<p> Or modify <a href="PDTBAPI/run_query.txt">this Perl script</a> appropriately, and place it
+      in the PDTBUser directory. Here is <a href="PDTBAPI/query_test.txt">another Perl script</a> with
+      example queries, and <a href="PDTBAPI/xpath.pdf"> some slides </a> explaining the overall design.
+      These files use the standard XPath syntax. </p>
+			<p> We have added extensions to XPath specific to the PDTB. Since this a growing list, we
+      have moved it to a separate <a href="PDTBAPI/xpathextensions.html"> PDTB XPath Extensions</a> page.
+      Scripts containing example queries are now part of <a href="PDTBAPI/pdtbuser.zip"> the user distribution</a>. </p>
+			<p> Users unfamiliar with Java should go <a href="http://java.sun.com/docs/books/tutorial/getStarted/cupojava/">here</a> for a 
+      tutorial on how to run Java programs. The most common error is setting the classpath wrong, 
+      which results in output of the form: </p>
+			<pre>
+  Exception in thread &quot;main&quot; java.lang.NoClassDefFoundError: edu.upenn.cis.pdtb.xpath.PDTBXPath
+			</pre>
+			<p> Please make sure that the classpath includes the &quot;pdtb.jar&quot; file in the PDTBUser directory.
+      That is if you run the command from a directory other than PDTBUser the option should be
+      specified as <EM> -classpath "....path to...pdtb.jar" </EM>. </p>
+			<p> The XPath expression should select Element nodes listed below. If any other kind of node or 
+      object is returned by the query, the program exits. The full XPath functionality can be 
+      accessed via the API. The following is the list of Elements, their children, and attributes: </p>
+			<TABLE border="1">
+				<COLGROUP>
+					<COL width="1" />
+					<COL width="2" />
+					<COL width="2" />
+				</COLGROUP>
+				<TR>
+					<TD>Element QName</TD>
+					<TD>Children QNames</TD>
+					<TD> Attribute QNames</TD>
+				</TR>
+				<TR>
+					<TD>RelationList</TD>
+					<TD>ExplicitRelation*, ImplicitRelation*, AltLexRelation*, EntityRelation*, NoRelation*</TD>
+					<TD></TD>
+				</TR>
+				<TR>
+					<TD>ExplicitRelation</TD>
+					<TD>Sup1?, Arg1, Arg2, Sup2?</TD>
+					<TD>Source, Type, Polarity, Det, connHead, sClassA, sClassB?, rawText</TD>
+				</TR>
+				<TR>
+					<TD>ImplicitRelation</TD>
+					<TD>Sup1?, Arg1, Arg2, Sup2?</TD>
+					<TD>Source, Type, Polarity, Det, conn1, sClass1A, sClass1B?, conn2?, sClass2A?, sClass2B?</TD>
+				</TR>
+				<TR>
+					<TD>AltLexRelation</TD>
+					<TD>Sup1?, Arg1, Arg2, Sup2?</TD>
+					<TD>Source, Type, Polarity, Det, sClassA, sClassB?, rawText</TD>
+				</TR>
+				<TR>
+					<TD>EntityRelation</TD>
+					<TD>Arg1, Arg2</TD>
+					<TD></TD>
+				</TR>
+				<TR>
+					<TD>NoRelation</TD>
+					<TD>Arg1, Arg2</TD>
+					<TD></TD>
+				</TR>
+				<TR>
+					<TD>Arg1</TD>
+					<TD></TD>
+					<TD>Source, Type, Polarity, Det, rawText</TD>
+				</TR>
+				<TR>
+					<TD>Arg2</TD>
+					<TD></TD>
+					<TD>Source, Type, Polarity, Det, rawText</TD>
+				</TR>
+				<TR>
+					<TD>Sup1</TD>
+					<TD></TD>
+					<TD>rawText</TD>
+				</TR>
+				<TR>
+					<TD>Sup2</TD>
+					<TD></TD>
+					<TD>rawText</TD>
+				</TR>
+			</TABLE>
+			<p> Note that the Source, Type, Polarity, and Det attributes appear on all 
+      arguments except those of EntityRelation and NoRelation. </p>
+			<p> The expression <code>&quot;//ExplicitRelation[@connHead='because']&quot;</code> selects
+      all occurences of the explicit connective &quot;because&quot;. The expression <code>&quot;//ImplicitRelation[@conn1='instead']&quot;</code> selects all implicit relations
+      where &quot;instead&quot; is chosen as conn1. Note that the enclosing quotes are necessary on
+      the command line. </p>
+			<p> If an Element is selected by an expression, the closest ancestor (or the node
+      itself) which is a child of PDTBRelationList will be output. This is so that the
+      results can be loaded in the browser. If the -c option is specified total counts of
+      the number of objects selected is produced. This will usually be greater than or equal to the number
+      of relations saved in the OutputRoot. </p>
+			<p> Here is a sample command line invocation for the Bourne shell:
+				<pre>
+     cd PDTBUser
+     java -Xmx300M -Xms300M -classpath "pdtb.jar" edu.upenn.cis.pdtb.xpath.PDTBXPath \
+             -r Corpora/PTB/raw/wsj \
+             -p Corpora/PTB/combined/wsj \
+             -d Corpora/PDTB/pdtb/wsj \
+             -o Corpora/PDTB/PDTBImplicitBecause \
+             -x "//ImplicitRelation[@conn1 = 'because']" -c -b
+				</pre>
+    Note that the output directory specified by -o, should not exist prior to
+    invocation.
+			</p>
+			<p> See the <a href="http://www.w3.org/TR/xpath">XPath</a> recommendation for further
+      info on XPath. For querying the syntax as well, use the API. </p>
+		</p>
+		<div id="to_top" align="right"><a href="#center">To top</a><br/>
+		</div>
+		<hr id="thick_line"/>
+		<a name="annotator" id="annotator"></a>
+		<H3>The Annotator</H3>
+		<h4>---Running---</h4>
+    Requirements:
+		<ul>
+			<li><a href="PDTBAPI/Annotator-bin.zip">Annotator.jar</a></li>
+			<li>Java 1.5 or later.</li>
+			<li>Raw Text Files.</li>
+		</ul>
+    In order to Run, there are three sets of folders required: <br/>
+    ..raw/section/ <br/>
+    ..ann/ <br/>
+    ..comments/ <br/>
+    The names of the folders do not matter.  You are required to have at least one section folder inside raw.  Each of the rawtext files must go into any of the section folders.  For the annotation and comments folder, no sections are required during the first run.  Any annotation and comment files that are created by this program will parallel the hierarchy of the raw section folders. <br/>
+    Start the program and you will be given a File dialog. <br/>
+    With the above structure, you would select &quot;raw&quot; as the &quot;RawRoot&quot;, &quot;ann&quot; as the &quot;AnnRoot&quot;, and &quot;comments&quot; as the commentRoot. <br/>
+    The first time you run the program from a new directory, these fields will be blank.  After running, your settings will be saved in the same directory as the jar file as AnnSettings.txt. <br/>
+		<br/>
+    To change the combo box choices in the program, you can edit Options.cfg.  The numbers in the sets of choices represent the zero-based index of the default choice.  These numbers are required for the first 8 items.  The lists under the items must be in alphabetic order for this to work.  If you delete Options.cfg, the jar will revert back to a default Options.cfg inside the jar at: <br/>
+    Annotator.jar\edu\upenn\cis\anntool\settings\Options.cfg <br/>
+    This file will be copied back out to the same directory as the jar file next time you start the Annotator. <br/>
+		<h4>---Using---</h4>
+    Now, when the Annotator starts, you should be able to choose a raw text file by selecting its section number and the file name.  Click load to load the raw text and all of the annotations for that file. <br/>
+    Now you can create a new relation or select a relation from the list and edit and delete the relation.  If you make any changes to a relation, you will not be able to switch relations, load, or exit without saving the relation or canceling the changes. <br/>
+    For editing spans, the colors of the buttons match with the colors of the spans.  To create a span, you can select the text and then click the corresponding span button.  To select multiple spans, hold down ctrl (Windows/Linux) or Cmd (Mac - untested) or Spacebar (All) between selections.  To deselect a spanlist, click the corresponding span button again. <br/>
+    There is one more handy feature that lets you search for a token.  As you type, all instances of a whole token will be highlighted in blue-green.  You can also add all instances of this token to the relation list as an Explicit connective by clicking the &quot;Add All&quot; Button. <br/>
+    You can save any relation even if you have not completely filled out all of its required values.  These relations will show up with a red background in your relation list. <br/>
+    You can also save comments in the big text box in the bottom right corner.  These comments will be saved separately from the annotation files for convenience when parsing the annotation files later. <br/>
+		<h4>---Annotated File Structure---</h4>
+    Each annotated relation is simply a pipe &quot;|&quot; delimited line with the following format: <br/>
+		<br/>
+    Relation Type|Conn Span|Conn Src|Conn Type|Conn Pol|Conn Det|Conn Feat Span|Conn1|SClass1A|SClass1B|Conn2|SClass2A|SClass2B|Sup1 Span|Arg1 Span|Arg1 Src|Arg1 Type|Arg1 Pol|Arg1 Det|Arg1 Feat Span|Arg2 Span|Arg2 Src|Arg2 Type|Arg2 Pol|Arg2 Det|Arg2 Feat Span|Sup2 Span <br/>
+		<br/>
+    For relation types that do not have a particular field, these fields are simply left blank <br/><br/>
+		<table border="1">
+			<th colspan="2">Description of the Annotation File Fields</th>
+			<tr><td>Relation Type</td><td>Explicit, Implicit, AltLex, EntRel, NoRel</td></tr>
+			<tr><td>Conn Span</td><td>Text Span of the Connective</td></tr>
+			<tr><td>Conn Src</td><td>Connective's Source</td></tr>
+			<tr><td>Conn Type</td><td>Connective's Type</td></tr>
+			<tr><td>Conn Pol</td><td>Connective's Polarity</td></tr>
+			<tr><td>Conn Det</td><td>Connective's Determinacy</td></tr>
+			<tr><td>Conn Feat Span</td><td>Connective's Feature Span</td></tr>
+			<tr><td>Conn1</td><td>Explicit Connective / First Implicit Connective</td></tr>
+			<tr><td>SClass1A</td><td>First Semantic Class of the First Connective</td></tr>
+			<tr><td>SClass1B</td><td>Second Semantic Class of the First Connective</td></tr>
+			<tr><td>Conn2</td><td>Second Implicit Connective</td></tr>
+			<tr><td>SClass2A</td><td>First Semantic Class of the Second Connective</td></tr>                                            
+			<tr><td>SClass2B</td><td>Second Semantic Class of the Second Connective</td></tr>
+			<tr><td>Sup1 Span</td><td>Text Span of the First Argument's Supplement</td></tr>
+			<tr><td>Arg1 Span</td><td>Text Span of the First Argument</td></tr>
+			<tr><td>Arg1 Src</td><td>First Argument's Source</td></tr>
+			<tr><td>Arg1 Type</td><td>First Argument's Type</td></tr>  
+			<tr><td>Arg1 Pol</td><td>First Argument's Polarity</td></tr>
+			<tr><td>Arg1 Det</td><td>First Argument's Determinacy</td></tr>  
+			<tr><td>Arg1 Feat Span</td><td>Text Span of the First Argument's Feature</td></tr>  
+			<tr><td>Arg2 Span</td><td>Text Span of the Second Argument</td></tr>
+			<tr><td>Arg2 Src</td><td>Second Argument's Source</td></tr>
+			<tr><td>Arg2 Type</td><td>Second Argument's Type</td></tr>  
+			<tr><td>Arg2 Pol</td><td>Second Argument's Polarity</td></tr>
+			<tr><td>Arg2 Det</td><td>Second Argument's Determinacy</td></tr>  
+			<tr><td>Arg2 Feat Span</td><td>Text Span of the Second Argument's Feature</td></tr>                                      
+			<tr><td>Sup2 Span</td><td>Text Span of the Second Argument's Supplement</td></tr>                                      
+		</table>
+		<h4>---Comments File Structure---</h4>
+    The comments files use the java properties class to allow key, value pairs, where: <br/>
+    key = Relation Type|Conn Span|Arg1 Span|Arg2 Span <br/>
+    value = A Multiline Comment <br/>
+		<h4>---About---</h4>
+    - The source code is available here: <a href="PDTBAPI/Annotator-src.zip">Annotator-src.zip</a>. <br/>
+    - Compiled with Java 1.5.0_17 (for compatibility with most Macs) <br/>
+    - For bugs or feature requests please feel free to e-mail Geraud Campion at geraud@seas.upenn.edu
+		<div id="to_top" align="right"><a href="#center">To top</a><br/>
+		</div>
+		<hr id="thick_line"/>
+		<a name="adjudicator" id="adjudicator"></a>
+		<H3>The Adjudication Functionality of the Annotator</H3>
+		<h4>---Running---</h4>
+    Requirements:
+		<ul>
+			<li><a href="PDTBAPI/Annotator-bin.zip">Annotator.jar</a></li>
+			<li>Java 1.5 or later.</li>
+			<li>Raw Text Files.</li>
+			<li>One or more sets of Annotation Files to be adjudicated.</li>
+		</ul>
+    In order to Run, there are three sets of folders required: <br/>
+    ..raw/section/ <br/>
+	..adjudicated/ <br/>
+    ..ann1/section/ <br/>
+	..ann2/section/ <br/>
+    ..comments/ <br/>
+    The names of the folders do not matter.  You are required to have at least one section folder inside raw.  Each of the rawtext files must go into any of the section folders.  Each of the annotation roots must follow the same section/file structure as the raw root. For the adjudication and comments folder, no sections are required during the first run.  Any adjudication and comment files that are created by this program will parallel the hierarchy of the raw section folders. <br/>
+    Start the program and you will be given a File dialog as shown: <br/>
+	<img src="PDTBAPI/adjudicator01.jpg" /><br/>
+	As you specify the annotation roots, additional text boxes will appear. <br/>
+    With the above structure, you would select &quot;raw&quot; as the &quot;RawRoot&quot;, &quot;adjudicated&quot; as the &quot;Output/AdjudicationRoot&quot;, &quot;ann1&quot; as the first &quot;AnnRoot&quot;, &quot;ann2&quot; as the second &quot;AnnRoot&quot;, and &quot;comments&quot; as the commentRoot. <br/>
+    The first time you run the program from a new directory, these fields will be blank.  After running, your settings will be saved in the same directory as the jar file as AnnSettings.txt. <br/>
+		<br/>
+    To change the combo box choices in the program, you can edit Options.cfg.  The numbers in the sets of choices represent the zero-based index of the default choice.  These numbers are required for the first 8 items.  The lists under the items must be in alphabetic order for this to work.  If you delete Options.cfg, the jar will revert back to a default Options.cfg inside the jar at: <br/>
+    Annotator.jar\edu\upenn\cis\anntool\settings\Options.cfg <br/>
+    This file will be copied back out to the same directory as the jar file next time you start the Annotator. <br/>
+		<h4>---Using---</h4>
+    When the Annotator starts, you should be able to choose a raw text file by selecting its section number and the file name.  Click load to load the raw text and all of the annotations for that file.<br/>
+	<img src="PDTBAPI/adjudicator02.jpg" /><br/>
+	You can see in the "Relation List" pane that all annotations are grouped together if they are annotations of similar relations. Relations are considered similar if either of the conditions hold:
+	<ul>
+		<li>The relation types are Explicit and the locations of the start of the connective spans are the same.</li>
+		<li>The relation types are not Explicit and the location of the start of the relation identifiers are the same. The relation identifiers are specified as follows:
+			<ul>
+			<li>For AltLex relations, the start of the connective spans are compared.</li>
+			<li>For Implicit, EntRel, and NoRel relations, the start of arg2s are compared</li>
+			</ul>
+		</li>
+	</ul>
+	In each grouping, the parent node represents the relation in the adjudication/output and the child nodes are from the source annotation files. There are 4 icons that indicate 6 different scenarios:
+	<ul>
+	<li>Parent <img src="PDTBAPI/red_x.png" />: Relation does not exist in adjudication file but similar relation exists in annotation file(s)</li>
+	<li>Parent <img src="PDTBAPI/orange_question.png" />: Relation exists in adjudication file but similar relation does not exist in annotation file(s)</li>
+	<li>Parent <img src="PDTBAPI/green_equal.png" />: Relation in adjudication file completely matches all similar relations in annotation file(s)</li>
+	<li>Parent <img src="PDTBAPI/red_nequal.png" />: Relation in adjudication file does not completely match all similar relations in annotation file(s)</li>
+	<li>Child <img src="PDTBAPI/green_equal.png" />: Relation in annotation file completely matches similar relation in adjudication file</li>
+	<li>Child <img src="PDTBAPI/red_nequal.png" />: Relation in annotation file does not completely match similar relation in adjudication file</li>	
+	</ul>
+	Other features in the relation list:
+	<ul>
+		<li>Red Font: Incomplete relation</li>
+		<li>Black Font : Complete relation</li>
+		<li>The number in parentheses, e.g., (2), represents the matching group</li>
+		<li>The partial file path in the relation represents the name of the root directory for the set of annotations/adjudications the the relation belongs to.
+	</ul>
+	When loading a new file for the first time, groups of similar relations that do not have any conflicts are automatically moved to the output adjudication file. To manually select an annotation and copy it to the output adjudication file, select that relation and click the "Select Annotation" button. You also have the option of "Deleting Annotation" from the adjudication output and dragging an annotation from one group to another.
+<br/>
+	<img src="PDTBAPI/adjudicator03.jpg" /><br/>
+		<h4>---Annotated File Structure---</h4>
+    Each annotated relation is simply a pipe &quot;|&quot; delimited line with the following format: <br/>
+		<br/>
+    Relation Type|Conn Span|Conn Src|Conn Type|Conn Pol|Conn Det|Conn Feat Span|Conn1|SClass1A|SClass1B|Conn2|SClass2A|SClass2B|Sup1 Span|Arg1 Span|Arg1 Src|Arg1 Type|Arg1 Pol|Arg1 Det|Arg1 Feat Span|Arg2 Span|Arg2 Src|Arg2 Type|Arg2 Pol|Arg2 Det|Arg2 Feat Span|Sup2 Span <br/>
+		<br/>
+    For relation types that do not have a particular field, these fields are simply left blank <br/><br/>
+		<table border="1">
+			<th colspan="2">Description of the Annotation File Fields</th>
+			<tr><td>Relation Type</td><td>Explicit, Implicit, AltLex, EntRel, NoRel</td></tr>
+			<tr><td>Conn Span</td><td>Text Span of the Connective</td></tr>
+			<tr><td>Conn Src</td><td>Connective's Source</td></tr>
+			<tr><td>Conn Type</td><td>Connective's Type</td></tr>
+			<tr><td>Conn Pol</td><td>Connective's Polarity</td></tr>
+			<tr><td>Conn Det</td><td>Connective's Determinacy</td></tr>
+			<tr><td>Conn Feat Span</td><td>Connective's Feature Span</td></tr>
+			<tr><td>Conn1</td><td>Explicit Connective / First Implicit Connective</td></tr>
+			<tr><td>SClass1A</td><td>First Semantic Class of the First Connective</td></tr>
+			<tr><td>SClass1B</td><td>Second Semantic Class of the First Connective</td></tr>
+			<tr><td>Conn2</td><td>Second Implicit Connective</td></tr>
+			<tr><td>SClass2A</td><td>First Semantic Class of the Second Connective</td></tr>                                            
+			<tr><td>SClass2B</td><td>Second Semantic Class of the Second Connective</td></tr>
+			<tr><td>Sup1 Span</td><td>Text Span of the First Argument's Supplement</td></tr>
+			<tr><td>Arg1 Span</td><td>Text Span of the First Argument</td></tr>
+			<tr><td>Arg1 Src</td><td>First Argument's Source</td></tr>
+			<tr><td>Arg1 Type</td><td>First Argument's Type</td></tr>  
+			<tr><td>Arg1 Pol</td><td>First Argument's Polarity</td></tr>
+			<tr><td>Arg1 Det</td><td>First Argument's Determinacy</td></tr>  
+			<tr><td>Arg1 Feat Span</td><td>Text Span of the First Argument's Feature</td></tr>  
+			<tr><td>Arg2 Span</td><td>Text Span of the Second Argument</td></tr>
+			<tr><td>Arg2 Src</td><td>Second Argument's Source</td></tr>
+			<tr><td>Arg2 Type</td><td>Second Argument's Type</td></tr>  
+			<tr><td>Arg2 Pol</td><td>Second Argument's Polarity</td></tr>
+			<tr><td>Arg2 Det</td><td>Second Argument's Determinacy</td></tr>  
+			<tr><td>Arg2 Feat Span</td><td>Text Span of the Second Argument's Feature</td></tr>                                      
+			<tr><td>Sup2 Span</td><td>Text Span of the Second Argument's Supplement</td></tr>                                      
+		</table>
+		<h4>---Comments File Structure---</h4>
+    The comments files use the java properties class to allow key, value pairs, where: <br/>
+    key = Relation Type|Conn Span|Arg1 Span|Arg2 Span <br/>
+    value = A Multiline Comment <br/>
+		<h4>---About---</h4>
+    - The source code is available here: <a href="PDTBAPI/Annotator-src.zip">Annotator-src.zip</a>. <br/>
+    - Compiled with Java 1.5.0_17 (for compatibility with most Macs) <br/>
+    - For bugs or feature requests please feel free to e-mail Geraud Campion at geraud@seas.upenn.edu
+		<div id="to_top" align="right"><a href="#center">To top</a><br/>
+		</div>
+		<hr id="thick_line"/>
+		<a name="noptb" id="noptb"></a>
+		<H3>The PTB-Free Browser</H3>
+    The PTB-Free Browser allows you to easily view annotation files without the need to convert the annotation files. The disadvantage of this browser is that the annotations are not aligned with the Penn Tree Bank.
+		<h4>---Running---</h4>
+    Requirements:
+		<ul>
+			<li><a href="PDTBAPI/noptb.jar">noptb.jar</a></li>
+			<li>Java 1.5 or later</li>
+			<li>Raw Text Files</li>
+			<li>Annotation Files</li>
+		</ul>
+		<div id="to_top" align="right"><a href="#center">To top</a><br/>
+		</div>
+		<hr id="thick_line"/>
+		<a name="conversion" id="conversion"></a>
+		<H3>The Conversion Tool</H3>
+    The Conversion tool is useful if you would like to use the Annotation Tool to annotate files for the PDTB Browser.
+    It lets you convert PDTB Browser files to Annotation files, do annotations with those files, and then convert the Annotated files back to PDTB Browser files.
+		<h4>---Running---</h4>
+    Requirements:
+		<ul>
+			<li><a href="PDTBAPI/Conversion-bin.zip">Conversion.jar</a></li>
+			<li>Java 1.5 or later</li>
+			<li>Raw Text Files</li>
+			<li>PTB Files</li>
+			<li>For converting from Browser files to Annotation files:</li>
+			<ul>
+				<li>PDTB Files</li>
+			</ul>
+			<li>For converting from Annotation files to Browser files:</li>
+			<ul>
+				<li>Annotation Files</li>
+				<li>Connective Head File (the default is included with the Conversion jar distribution as &quot;ConnHeads.txt&quot;)</li>
+			</ul>
+		</ul>
+		<h4>---Using---</h4>
+    When you start the Conversion tool, you will have to select which way you want to convert the files, using the radio button. <br/>
+		<br/>
+    For converting from the browser files to annotation files, you need to provide, for input, the locations of the Rawtext file root, the PTB file root, and the original pdtb file root. <br/>
+    The files will be output to the AnnRoot location. <br/>
+		<br/>
+    For converting from the annotation files to browser files, you need to provide, for input, the locations of the Rawtext file root, the PTB file root, the Annotation file root, and the Connective Head file. <br/>
+    Please note that when converting annotation files to browser files, any relations that are incomplete will be skipped.  Incomplete relations are indicated by a red background in the relation list in the Annotator tool. <br/>
+    The files will be output to the New PDTB Root location. <br/>
+    The temporary folder is used for intermediate files and will be deleted automatically at the end of conversion. <br/>
+    The Standoff PTB (SPTB) needs to be created if this is the first time running an Annotation to PDTB file conversion.  To create this, you just need to provide an empty folder for SptbRoot.  Provide that same location for each successive conversion. <br/>
+		<br/>
+    The conversions may take some time after clicking the &quot;convert&quot; button.  Conversion from PDTB to Ann takes about 1-2 min.  Conversion from Ann to PDTB takes about 3-5 min. <br/>
+    The file locations get saved in a file called &quot;ConvertSettings.txt&quot; in the same directory as Conversion.jar. <br/>
+		<h4>---Problems---</h4>
+    During conversion from Annotation files back to PDTB files, if a file exists in the annotation root, but the corresponding file does not exist in the raw root or ptb root, that file is skipped in the conversion (for example, log files or merge files). <br/>
+		<br/>
+    There are also a few known cases where the raw or ptb files have errors.  These files prevent a conversion of the corresponding pdtb files.  These are cases where the text of the rawtext files does not completely match the text of the lexical leaf nodes in the ptb files.  If new annotations are necessary for these cases, you can fix the raw files and ptb files yourself or do the annotations by hand.  If fixing the raw files and ptb files, please delete the sptb files from previous conversions so that new ones will be created using the fixed files.  The following is a list of the known rawtext-ptb problem file pairs: <br/>
+		<br/>
+    0004, 0142, 0203, 0285, 0455, 0749, 0998, 1625, 2170, 2312 <br/>
+		<br/>
+    DO NOT BOTHER ANNOTATING THESE FILES.  There is no way to convert them without introducing some non-standardized technique.
+		<h4>---About---</h4>
+    - The source code is available here: <a href="PDTBAPI/Conversion-src.zip">Conversion-src.zip</a>. <br/>
+    - Compiled with Java 1.5.0_17 (for compatibility with most Macs) <br/>
+    - For bugs or feature requests please feel free to e-mail Geraud Campion at geraud@seas.upenn.edu
+		<div id="to_top" align="right"><a href="#center">To top</a><br/>
+		</div>
+
+            <!-----------------------------------CONTENT ENDS HERE------------------------------------------></td>
+          <td width="39" background="img/right.gif" style="background-repeat:repeat-y"/>
+        </tr>
+        <tr>
+<td width="39" height="39" background="img/bottomleft.gif"/>
+<td height="39" background="img/bottom.gif" style="background-repeat:repeat-x"/>
+<td width="39" height="39" background="img/bottomright.gif"/>
+</tr>
+
+<tr><td colspan="5">
+<table id="footer" width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td height="30" background="img/wordcloud_1.gif" width="50%" style="background-position:left top"/>
+    <td id="footer" style="white-space:nowrap">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#169; The Penn Discourse Treebank&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td height="30" background="img/wordcloud_2.gif" width="50%" style="background-position:right top"/>
+  </tr>
+</table>
+</td></tr>
+
+<!--tr><td colspan="2"/><td id="footer">&#169; The Penn Discourse TreeBank</td><td colspan="2"/></tr-->
+      </table></td>
+  </tr>
+</table>
+</body>
+</html>

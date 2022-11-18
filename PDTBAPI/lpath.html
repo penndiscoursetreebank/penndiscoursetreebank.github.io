@@ -1,0 +1,183 @@
+<HTML>
+<HEAD>
+<TITLE>Querying the PTB</TITLE>
+<STYLE TYPE="text/css">
+H1,H2,H3 {color:black}
+H4,H5 {color:black}
+A:link {color:blue}
+A:active {color:red}
+A:visited {color:blue}
+TD {vertical-align:top;border:1px solid #000000;text-align:left}
+B {color:blue}
+</STYLE>
+</HEAD>
+
+<BODY  BGCOLOR="#eeeeee" TEXT="#000000">
+<p>
+  The following syntactic shortenings are supported in v0.2.3:
+ 
+  <table border="1">
+    <tr><td>Standard XPath</td><td>Short Form</td></tr>
+    <tr><td><code>self::*</code></td><td><code>=::*</code></td></tr>
+    <tr><td><code>child::*</code></td><td><code> >::*</code></td></tr>
+    <tr><td><code>parent::* </code></td><td><code> <::*</code></td></tr>
+    <tr><td><code>descendant::* </code></td><td><code> >>::*</code></td></tr>
+    <tr><td><code>descendant-or-self::*</code></td><td><code> =>>::*</code></td></tr>
+    <tr><td><code>ancestor-or-self::*</code></td><td><code> <<=::*</code></td></tr>
+    <tr><td><code>following::*</code></td><td><code> ->::*</code></td></tr>
+    <tr><td><code>preceding::*</code></td><td><code> <-::*</code></td></tr>
+    <tr><td><code>following-sibling::*</code></td><td><code>$>::*</code></td></tr>
+    <tr><td><code>preceding-sibling::* </code></td><td><code><$::*</code></td></tr>
+</table>
+</p>
+
+
+Here are some simple queries:
+
+<ul>
+<li>
+Nodes with constituent label NP
+<pre>
+=>>::NP
+</pre>
+</li>
+
+<li>
+Nodes with constituent label S, and
+role TPC
+<pre>
+=>>::S[contains(@roles,'TPC')]
+</pre>
+</li>
+
+<li>
+Nodes with label John (terminals) 
+which are followed by nodes with label Mary
+<pre>
+=>>::John[->::Mary]
+</pre>
+</li>
+
+<li>
+Nodes with label Mary in the query above
+<pre>
+=>>::John/->::Mary
+</pre>
+</li>
+
+</ul>
+
+While there is no command line utility, this is very easy to access using the API. The following code can be used to
+produce counts of queries:
+
+<pre>
+    public int getCount(String ptbRoot, String xpathExpr) throws Exception{
+
+        //The navigator provides iterators that
+        //traverse the tree.
+        PTBNavigator nav = new PTBNavigator(null);
+
+        //Compile the XPath expression
+        PTBXPath xp = (PTBXPath)(nav.parseXPath(xpathExpr));
+        
+        int count = 0;
+
+        //For each treebank file
+        for(PTBTask task = new PTBTask(ptbRoot);task.hasNext();){
+
+            //Get the abstract root node whose children
+            //are the sentences.
+            PTBTreeNode root = task.next();
+            
+            //For each sentence
+            for(Enumeration children = root.children(); children.hasMoreElements();){
+
+                //Set a sentence as the root of a tree against
+                //which an expression is run
+                nav.setRoot((PTBTreeNode)(children.nextElement()));
+
+                //Run the expression
+                count += ((List)xp.evaluate(nav.getRoot())).size();
+            }
+            
+        }
+        return count;
+    }
+
+Relevant Packages: edu.upenn.cis.ptb.xpath and edu.upenn.cis.ptb.util
+</pre>
+
+The following are queries from the <a href="http://projects.ldc.upenn.edu/QLDB/lpath3.pdf">Bird et al.</a> paper
+in our notation. Please refer to the paper for details on the semantics.
+
+<ul>
+<li> Clauses containing the word <em> saw </em>:
+
+<pre> >>::S/>>::saw </pre>
+</li>
+
+<li> NPs immediately following a verb:
+
+<pre> i-foll(>>::VB,{=::NP}) </pre>
+
+</li>
+
+<li> Nouns that follow a verb which is a child of a verb phrase:
+
+<pre> >>::VP/>::VB/->::NN </pre>
+
+</li> 
+
+<li>
+Within a verb phrase,  find nouns that follow a verb which is a child of a verb phrase:
+
+<pre> subtree(>>::VP,{>::VB/->::NN}) </pre>
+
+</li>
+
+<li>
+NPs which are the rightmost child of a VP:
+
+<pre> subtree(>>::VP,{>::NP[r-edge()]}) </pre>
+</li>
+
+<li>
+NPs which are the rightmost descendants of a VP:
+
+<pre> subtree(>>::VP,{>>::NP[r-edge()]}) </pre>
+
+</li>
+
+<li>
+VPs comprising of a verb (on the left edge), an NP (immediately following the verb) and a PP (immediately following the NP and on the
+right edge):
+
+<pre> 
+>>::VP[
+       subtree(.,
+               {i-foll(=>>::VB[l-edge()],
+                       {i-foll(=::NP,
+                               {=::PP[r-edge()]})
+                       })
+               })
+      ] 
+</pre> 
+</li>
+
+</ul>
+
+"subtree" and "i-foll" are implemented as functions which take two arguments. Their signatures are as follows:
+
+<pre>
+node-set subtree(node-set, string)
+
+node-set i-foll(node-set, string)
+</pre>
+
+The second argument is a string which should be a valid xpath expression, and it is applied to each node in the
+node-set supplied in the first argument. Since we need the ability to embed these functions, curly braces are used
+instead of quotes in the expressions above. 
+
+</BODY>
+
+</HTML>

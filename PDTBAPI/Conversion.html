@@ -1,0 +1,73 @@
+<html>
+<head>
+<title>The Conversion tool</title>
+<body>
+
+<h1 align="center">The Conversion tool</h1>
+
+<br/>
+
+The Conversion tool is useful if you would like to use the Annotation Tool to annotate files for the PDTB Browser.
+It lets you convert PDTB Browser files to Annotation files, do annotations with those files, and then convert the Annotated files back to PDTB Browser files.  
+
+<h3>---Running---</h3>
+Requirements:
+<ul>
+<li><a href="Conversion-bin.zip">Conversion.jar</a></li>
+<li>Java 1.5 or later.</li>
+<li>Raw Text Files.</li>
+<li>PTB Files.</li>
+<li>For converting from Browser files to Annotation files:
+<ul>
+<li>PDTB Files</li>
+</ul>
+<li>For converting from Annotation files to Browser files:</li>
+<ul>
+<li>Annotation Files</li>
+<li>Connective Head File (the default is included with the Conversion jar distribution as "ConnHeads.txt")</li>
+</ul>
+</ul>
+
+
+<h3>---Using---</h3>
+When you start the Conversion tool, you will have to select which way you want to convert the files, using the radio button.
+</br></br>
+For converting from the browser files to annotation files, you need to provide, for input, the locations of the Rawtext file root, the PTB file root, and the original pdtb file root.
+</br>
+The files will be output to the AnnRoot location.
+</br></br>
+For converting from the annotation files to browser files, you need to provide, for input, the locations of the Rawtext file root, the PTB file root, the Annotation file root, and the Connective Head file.
+</br>
+Please note that when converting annotation files to browser files, any relations that are incomplete will be skipped.  Incomplete relations are indicated by a red background in the relation list in the Annotator tool.
+</br>
+The files will be output to the New PDTB Root location.
+</br>
+The temporary folder is used for intermediate files and will be deleted automatically at the end of conversion.
+</br>
+The Standoff PTB (SPTB) needs to be created if this is the first time running an Annotation to PDTB file conversion.  To create this, you just need to provide an empty folder for SptbRoot.  Provide that same location for each successive conversion.     
+</br></br>
+The conversions may take some time after clicking the "convert" button.  Conversion from PDTB to Ann takes about 1-2 min.  Conversion from Ann to PDTB takes about 3-5 min.
+<br/>
+The file locations get saved in a file called "ConvertSettings.txt" in the same directory as Conversion.jar.
+
+<br/><br/>
+<h3>---Problems---</h3>
+During conversion from Annotation files back to PDTB files, if a file exists in the annotation root, but the corresponding file does not exist in the raw root or ptb root, that file is skipped in the conversion (for example, log files or merge files).  
+<br/><br/>
+There are also a few known cases where the raw or ptb files have errors.  These files prevent a conversion of the corresponding pdtb files.  These are cases where the text of the rawtext files does not completely match the text of the lexical leaf nodes in the ptb files.  If new annotations are necessary for these cases, you can fix the raw files and ptb files yourself or do the annotations by hand.  If fixing the raw files and ptb files, please delete the sptb files from previous conversions so that new ones will be created using the fixed files.  The following is a list of the known rawtext-ptb problem file pairs:
+<br/><br/>
+0004, 0142, 0203, 0285, 0455, 0749, 0998, 1625, 2170, 2312
+<br/><br/>
+DO NOT BOTHER ANNOTATING THESE FILES.  There is no way to convert them without introducing some non-standardized technique.
+
+<h3>---About---</h3>
+- The source code is available here: <a href="Conversion-src.zip">Conversion-src.zip</a>.
+<br/>
+- Compiled with Java 1.5.0_17 (for compatibility with most Macs)
+<br/>
+- For bugs or feature requests please feel free to e-mail Geraud Campion at geraud@seas.upenn.edu
+
+<br/><br/><br/>
+
+</body>
+</html>

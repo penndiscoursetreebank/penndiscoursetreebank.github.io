@@ -1,0 +1,115 @@
+#!/usr/bin/perl
+
+use File::Basename;
+
+#################################################################
+## This program is provided under the Common Public
+## License 1.0. The full license is in:
+##
+## htDocs/license
+##
+## It is important to note that:
+##
+## THIS PROGRAM IS PROVIDED ON AN "AS IS" BASIS, WITHOUT
+## WARRANTIES OR CONDITIONS OF ANY KIND, EITHER EXPRESS OR
+## IMPLIED INCLUDING, WITHOUT LIMITATION, ANY WARRANTIES OR
+## CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
+## FITNESS FOR A PARTICULAR PURPOSE. Each Recipient is solely
+## responsible for determining the appropriateness of using and
+## distributing the Program and assumes all risks associated with
+## its exercise of rights under this Agreement, including but not
+## limited to the risks and costs of program errors, compliance
+## with applicable laws, damage to or loss of data, programs or
+## equipment, and unavailability or interruption of operations.
+#################################################################
+
+
+###################################################
+## Example XPath Queries. Uncomment the appropriate
+## lines to run a query. The output of the query
+## will be stored in the directory QueryOut, under
+## the directory in which this script resides. This
+## directory will be erased prior to each run.
+###################################################
+
+############################################
+## All instances of because.
+############################################
+
+$Query = ">::*[\@connHead='because']";
+
+######################################
+## Modified Connectives.
+######################################
+
+# $Query = ">::*[\@connHead='if' and contains(\@rawText,'even')]";
+
+
+################################
+## Sentence Initial Connectives.
+################################
+
+# $Query = ">::*[\@connHead='also' and contains(\@rawText,'Also')]"; 
+
+################################
+## 'If' with 'not' in Arg2.
+################################
+
+# $Query = ">::*[\@connHead='if' and 
+#               child::Arg2[regexp(\@rawText,'.*\\W*not\\W*.*')]]";
+
+#########################################
+## 'If' followed anywhere by 'otherwise'.
+#########################################
+
+# $Query = ">::*[(\@connHead='if' and 
+#               \$>::*[\@connHead='otherwise']) or 
+#              (\@connHead='otherwise' and 
+#              <\$::*[\@connHead='if'])]";
+
+
+################################################################
+## 'If' immediately followed by 'otherwise', 'but', or 'however'
+################################################################
+
+# $Conn1="(\@connHead='if')";
+
+# $Conn2="(\@connHead='otherwise' or \@connHead='but' or \@connHead='however')";
+
+# $Query = ">::*[($Conn1 and 
+#                \$>::*[$Conn2 and position()=1]) or 
+#               ($Conn1 and 
+#                <\$::*[$Conn1 and position()=1])]";
+
+####################################################################
+## Implicit relations with Causal and Additional Information classes
+####################################################################
+
+# $Query = ">::ImplicitRelation[attribute::*[string()='Cause'] and 
+#                              attribute::*[string()='Add.Info']]";
+
+######################
+## Relations with Sups
+######################
+
+# $Query = ">::*[child::Sup1 or child::Sup2]";
+
+## Change to the directory the
+## script is in, which should be
+## the PDTBUser directory.
+$PdtbUserDir = dirname($0);
+chdir($PdtbUserDir);
+
+if((-e "pdtb.jar" || -e "pdtbbrowser.jnlp") && (-e "run_query.pl")){
+   ## Remove the prior query output.
+   system("rm -Rf QueryOut");
+
+   ## Invoke the run_query script.
+   system("./run_query.pl QueryOut \"". $Query . "\"");
+
+}
+else{
+   die "Please place this in the PDTBUser directory";
+
+}
+

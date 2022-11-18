@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- JNLP File for PDTBBrowser -->
+<jnlp
+  codebase="http://www.seas.upenn.edu/~pdtb/PDTBAPI"
+  href="pdtbbrowser.jnlp">
+  <information>
+    <title>PDTB Browser</title>
+    <vendor>Nikhil Dinesh</vendor>
+    <homepage href="index.html"/>
+    <description>PDTB Browser</description>
+    <icon href="screenshot.jpg"/>
+    <offline-allowed/> 
+  </information>
+  <security>
+      <all-permissions/>
+  </security>
+  <resources>
+    <j2se version="1.4.2+" java-vm-args="-Xmx100M -Xms100M" />
+    <jar href="pdtb.jar"/>
+  </resources>
+  <application-desc main-class="edu.upenn.cis.pdtb.graphics.PDTBBrowser"/>
+</jnlp> 

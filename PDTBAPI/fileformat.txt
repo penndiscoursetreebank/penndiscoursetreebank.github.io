@@ -1,0 +1,222 @@
+
+***Updated Grammar Portions***
+
+explicitRelationFeatures := Source Type Polarity Determinacy selection ConnHead SemanticClass1 SemanticClass2
+
+implicitRelationFeatures := Source Type Polarity Determinacy selection Conn1 SemanticClass1 SemanticClass2 | Source Type Polarity Determinacy selection Conn1 SemanticClass1 SemanticClass2 Conn2 SemanticClass1 SemanticClass2
+
+altLexRelationFeatures := Source Type Polarity Determinacy selection SemanticClass1 SemanticClass2
+
+argFeatures := Source Type Polarity Determinacy selection
+
+
+KEY CHANGES 	- attribution features: factuality changed to type, determinacy added as a new attribution feature
+		- source features: Arb added
+		- type features: Comm PAtt Ftv Ctrl replaces Fact NonFact
+		- polarity features: Pos removed
+		- two semantic classes per connective instead of one	
+		- a whole new set of semantic class features replacing the old one
+
+_______________________________________________________
+
+***Format***
+
+
+
+____Explicit____
+SpanList
+GornAddressList
+#### Text ####
+xxxx
+##############
+#### Features ####
+Source, Type, Polarity, Determinacy
+SpanList (attribution)
+GornAddressList (attribution)
+#### Text ####
+xxxx
+##############
+ConnHead, SemanticClass1, SemanticClass2 (optional)
+____Sup1____ (optional)
+SpanList
+GornAddressList
+#### Text ####
+xxxx
+##############
+____Arg1____
+SpanList
+GornAddressList
+#### Text ####
+xxxx
+##############
+#### Features ####
+Source, Type, Polarity, Determinacy
+SpanList (attribution)
+GornAddressList (attribution)
+#### Text ####
+xxxx
+##############
+____Arg2____
+SpanList
+GornAddressList
+#### Text ####
+xxxx
+##############
+#### Features ####
+Source, Type, Polarity, Determinacy
+SpanList (attribution)
+GornAddressList (attribution)
+#### Text ####
+xxxx
+##############
+____Sup2____ (optional)
+SpanList
+GornAddressList
+#### Text ####
+xxxx
+##############
+
+
+___Implicit___
+StringPosition
+SentenceNumber
+#### Features ####
+Source, Type, Polarity, Determinacy
+SpanList (attribution)
+GornAddressList (attribution)
+#### Text ####
+xxxx
+##############
+Conn1, SemanticClass1, SemanticClass2 (optional)
+Conn2 (optional), SemanticClass1 (optional unless Conn2), SemanticClass2 (optional)
+____Sup1____ (optional)
+SpanList
+GornAddressList
+#### Text ####
+xxxx
+##############
+____Arg1____
+SpanList
+GornAddressList
+#### Text ####
+xxxx
+##############
+#### Features ####
+Source, Type, Polarity, Determinacy
+SpanList (attribution)
+GornAddressList (attribution)
+#### Text ####
+xxxx
+##############
+____Arg2____
+SpanList
+GornAddressList
+#### Text ####
+xxxx
+##############
+#### Features ####
+Source, Type, Polarity, Determinacy
+SpanList (attribution)
+GornAddressList (attribution)
+#### Text ####
+xxxx
+##############
+____Sup2____ (optional)
+SpanList
+GornAddressList
+#### Text ####
+xxxx
+##############
+
+____ AltLex ____
+SpanList
+GornAddressList
+#### Text ####
+xxxx
+##############
+#### Features ####
+Source, Type, Polarity, Determinacy
+SpanList (attribution)
+GornAddressList (attribution)
+#### Text ####
+xxxx
+##############
+SemanticClass1, SemanticClass2 (optional)
+____Sup1____ (optional)
+SpanList
+GornAddressList
+#### Text ####
+xxxx
+##############
+____Arg1____
+SpanList
+GornAddressList
+#### Text ####
+xxxx
+##############
+#### Features ####
+Source, Type, Polarity, Determinacy
+SpanList (attribution)
+GornAddressList (attribution)
+#### Text ####
+xxxx
+##############
+____Arg2____
+SpanList
+GornAddressList
+#### Text ####
+xxxx
+##############
+#### Features ####
+Source
+Type
+Polarity
+Determinacy
+SpanList (attribution)
+GornAddressList (attribution)
+#### Text ####
+xxxx
+##############
+____Sup2____ (optional)
+SpanList
+GornAddressList
+#### Text ####
+xxxx
+##############
+
+
+____ EntRel ____
+StringPosition
+SentenceNumber
+____ Arg1 ____
+SpanList
+GornAddressList
+#### Text ####
+xxxx
+##############
+____ Arg2 ____
+SpanList
+GornAddressList
+#### Text ####
+xxxx
+##############
+
+
+____ NoRel ____
+StringPosition
+SentenceNumber
+____ Arg1 ____
+SpanList
+GornAddressList
+#### Text ####
+xxxx
+##############
+____ Arg2 ____
+SpanList
+GornAddressList
+#### Text ####
+xxxx
+##############
+
+
+

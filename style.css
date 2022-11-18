@@ -1,0 +1,199 @@
+/*
+Taken from this awesome tutorial:
+http://www.alistapart.com/articles/holygrail
+*/
+
+/*** APPEARANCE ***/
+body {
+	/*min-width:1390px;*/
+	margin:0;
+	padding:0;
+}
+#resize{
+    height: auto; 
+    width: auto; 
+    max-width:100%; 
+    max-height: 100%;
+}
+#toolsbody {
+	min-width:1238px;
+}
+
+#header_department h4, #header_department h5{
+	display:inline;
+}
+#header_logo div{
+	display:inline;	
+	font-size:50px;
+	font-weight:bold;
+}
+#footer {
+	font-size:large;
+	text-align:center;
+	padding:0 0 5px 0;
+}
+#left {
+	font-family:Impact,fantasy;
+	/*font-family:Arial, Helvetica, sans-serif;*/
+	/*font-weight:bold;*/
+	font-size:16px;
+}
+#center {
+	//font-family:Arial, Helvetica, sans-serif;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-weight:500;
+}
+#header_logo, #header_department, #footer {
+	font-family:Georgia, "Times New Roman", Times, serif;	
+}
+#thick_line {
+	border: 0;
+	width: 70%;
+	color: #900;
+	background-color: #900;
+	height: 8px;
+}
+#to_top{
+	font-size:25px;
+	font-weight:bold;
+}
+
+/*Navigation*/
+#left{
+	vertical-align:top;	
+}
+#left ul {
+	margin:0;
+	padding:0;
+	/*padding:40px 10px 40px 20px;*/
+}
+#left li.li0 {
+	list-style-type:none;
+	/*border-right-width:1px;
+	border-right-style:solid;
+	border-left-width:1px;
+	border-left-style:solid;*/
+	position:relative;	
+}
+#left li.li0 a {
+	display:block;
+	/*padding:5px 10px;*/
+	margin:0;
+	padding:0;
+	text-decoration:none;
+}
+
+/*** END APPEARANCE ***/
+
+
+/*** COLORS ***/
+
+/*
+Color guide
+Dark Grey ->		666
+Light Grey ->		CCC
+White -> 			FFF
+Pink ->				966
+Red	-> 				600
+Maroon ->			300
+*/
+
+body, #right, #footer{ /*,#header_logo*/
+	background:#900; /*red*/
+}
+#center, #header_department, #menu {
+	background:#FFF; /*white*/
+}
+#header_logo, #footer{
+	color:#FFF; /*white*/
+}
+#center h1, #center h2, #center h3, #center h4, #center h5, #center h6,
+#center h1 a, #center h2 a, #center h3 a, #center h4 a, #center h5 a, #center h6 a{
+	color:#800;	/*maroon*/
+}
+#center a {
+	color:#000; /*black*/
+}
+#center a:hover {
+	color:#900; /*red*/
+}
+#header_department{
+	color:#336;	/*Navy blue*/
+}
+/*Navigation*/
+#left li.li0 {
+	color:#FFF; /*white*/
+	border-left-color:#FFF; /*white*/
+	border-right-color:#FFF; /*white*/
+}
+#left li.li0 a {
+	color:#800; /*maroon*/
+}
+#left li.li0:hover{
+	/*background:#336;/* /*navy blue*/
+	/*background:#DB2;/* /*yellow*/
+	background:#AAA;
+}
+
+/*** END COLORS ***/
+
+
+/*Submenu
+#left li.li1 {
+	list-style-type:none;
+	position:relative;
+}
+#left li.li1 a {
+	display:block;
+	padding:5px 10px;
+	text-decoration:none;
+}
+
+#left li.li1 {
+	color:#FFF;
+}
+#left li.li1 a {
+	color:#FFF;
+}
+#left li.li1 a:hover {
+	background:#600;
+}
+
+*/
+
+
+/* Horizontal navigation
+
+#nav {
+	font-family:Arial, Helvetica, sans-serif;
+	font-weight:bold;
+}
+
+#nav td a
+{
+	text-align:center;
+	display: block;
+	padding: 5px 0px;
+	text-decoration: none;
+}
+
+
+#nav {
+	background:#900;
+}
+
+#nav td a
+{
+	color: #FFF;
+	border-left: 1px solid #FFF;
+}
+
+#last_list_item{
+	border-right: 1px solid #FFF;
+}
+
+#nav td a:hover {
+	background: #336; 
+}
+
+*/

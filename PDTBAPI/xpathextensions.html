@@ -1,0 +1,517 @@
+<HTML>
+<HEAD>
+<TITLE>PDTB XPath extensions</TITLE>
+<STYLE TYPE="text/css">
+H1,H2,H3 {color:black}
+H4,H5 {color:black}
+A:link {color:blue}
+A:active {color:red}
+A:visited {color:blue}
+TD {vertical-align:top;border:1px solid #000000;text-align:left}
+B {color:blue}
+EM {color:blue}
+</STYLE>
+</HEAD>
+<BODY  BGCOLOR="#eeeeee" TEXT="#000000">
+<p>
+This page is intended to serve as minimal documentation for the extensions we
+make to XPath, and will be expanded time permitting. The extensions so far fall
+into the following categories:
+
+<ul>
+<li><a href="#axissugar">Axis Syntactic Sugar</a> - Since 0.2.3</li>
+<li><a href="#regexp">Regular Expressions</a> - Since 0.2.2</li>
+<li><a href="#nodetypes">Node Type Functions</a> - Since 0.2.5</li>
+<li><a href="#spanfun">Span Functions</a> - Since 0.2.5. Modified in 0.2.9.</li>
+<li><a href="#cache">Caching Subexpressions</a> - Since 0.2.6</li>
+<li><a href="#expconngroup">Grouping Explicit Connectives</a> - Since 0.2.8</li>
+</ul>
+
+
+We assume familiarity with <a href="xpath.pdf"> the overall design </a>. The reader
+is invited to play with the queries, using the scripts included in <a href="pdtbuser.zip"> the user distribution</a>
+in conjunction with reading this.
+
+</p>
+
+<a id="axissugar"><B>Axis Syntactic Sugar</B></a>
+<p>
+As of v0.2.3, the following syntactic shortenings are supported:
+ 
+  <table border="1">
+    <tr><td>Standard XPath</td><td>Short Form</td></tr>
+    <tr><td><code>self::*</code></td><td><code>=::*</code></td></tr>
+    <tr><td><code>child::*</code></td><td><code> >::*</code></td></tr>
+    <tr><td><code>parent::* </code></td><td><code> <::*</code></td></tr>
+    <tr><td><code>descendant::* </code></td><td><code> >>::*</code></td></tr>
+    <tr><td><code>descendant-or-self::*</code></td><td><code> =>>::*</code></td></tr>
+    <tr><td><code>ancestor-or-self::*</code></td><td><code> <<=::*</code></td></tr>
+    <tr><td><code>following::*</code></td><td><code> ->::*</code></td></tr>
+    <tr><td><code>preceding::*</code></td><td><code> <-::*</code></td></tr>
+    <tr><td><code>following-sibling::*</code></td><td><code>$>::*</code></td></tr>
+    <tr><td><code>preceding-sibling::* </code></td><td><code><$::*</code></td></tr>
+</table>
+
+
+To select all instance of explicit "because", we can write: 
+
+<pre> 
+>::*[@connHead='because'] 
+</pre>
+
+Simple string substitution using the table above will give you the standard XPath form. A slightly more interesting 
+example is to select all instances of "if" followed (anywhere) by "otherwise", and all instances of "otherwise"
+preceded by "if".
+
+<pre>
+>::*[(@connHead='if' and 
+       $>::*[@connHead='otherwise']) or 
+     (@connHead='otherwise' and 
+        <$::*[@connHead='if'])]
+</pre>
+
+More complex locational information can be expressed using the <a href="#spanfun">span functions</a>
+</p>
+
+<a id="regexp"><B>Regular Expressions</B></a>
+
+<p>
+Regexes are supported via the following function:
+
+<pre>
+boolean regexp(string toMatch,string regex)
+</pre>
+
+This is straightforward to use. The following query which selects "if" with "not" in Arg2:
+
+<pre>
+>::*[@connHead='if' and 
+     >::Arg2[regexp(@rawText,'.*\\W*not\\W*.*')]]
+
+</pre>
+
+Valid regexes are those given by 
+<a href="http://java.sun.com/j2se/1.4.2/docs/api/java/util/regex/Pattern.html"> the Java Standard </a>
+
+
+</p>
+
+<a id="nodetypes"><B>Node Type Functions</B></a>
+
+<p>
+Three functions are used to group the nodes into more coarse grained categories than given by element
+names:
+
+<pre>
+boolean is-rel()
+boolean is-arg()
+boolean is-sup()
+</pre>
+
+These functions return true iff the context node is a relation, argument, supplementary information
+respectively. The following query selects all supplementary information nodes:
+
+<pre>
+>>::*[is-sup()]
+</pre>
+
+</p>
+
+<a id="spanfun"><B>Span Functions</B></a>
+
+<p>
+Three functions are provided, which we will discuss in turn:
+
+<ul>
+<li> <a href="#compsplist">Span List Comparison</a> </li>
+<li> <a href="#splistsize">Span List Size</a> </li>
+<li> <a href="#delimtext"> Delimiting text</a> </li>
+</ul>
+</p>
+
+<a id="compsplist"> <EM>Span Comparison</EM></a>
+
+<p>
+This section has been modified in version 0.2.9. Please use your local copy of the documentation 
+with earlier versions.
+</p>
+
+<p>
+This is a little more complex than the previous extensions. We begin with some basic terminology.
+A span <code>s</code> has two fields <code>s.start</code> and <code>s.end</code>. A span corresponds
+to a stretch of text selected by an annotator. Given spans <code>s1</code> and <code>s2</code> we
+say that:
+
+<pre>
+s1 contains s2  iff s1.start <= s2.start and s2.end <= s1.end
+
+s1 is contained by s2 iff s2 contains s1
+
+s1 overlaps s2 iff (s1.start <= s2.start and s2.start < s1.end) or (s2.start <= s1.start and s1.start < s2.end)
+
+Overlapping is symmetric.
+
+s1 is identical to s2 iff s1.start = s2.start and s1.end = s2.end
+
+Identity is an equivalence relation.
+
+s1 crosses s2 iff (s1.start < s2.start and s2.start < s1.end and s2.end > s1.end) or 
+                  (s2.start < s1.start and s1.start < s2.end and s1.end > s2.end)
+
+Crossing is symmetric.
+</pre>
+
+The PDTB allows for discontinuous selections of text, so we need to be able to talk about sets of
+spans rather than single spans. We will call an ordered set of disjoint spans a spanlist. The relations of
+containment, overlapping and identity can be easily extended to spanlists. Given spanlists <code>L1</code>
+and <code>L2</code> we say that:
+
+<pre>
+L1 contains L2 iff for all s2 in L2: there exists s1 in L1: s1 contains s2
+
+L1 is contained by L2 iff L2 contains L1
+
+L1 overlaps L2 iff there exists s1 in L1 and s2 in L2: s1 overlaps s2
+
+Overlapping remains symmetric
+
+L1 is identical to L2 iff for all s1 in L1: exists s2 in L2: s1 is identical to s2 (and vice-vera).
+</pre>
+
+Crossing does not extend naturally to spanlists, and we define an approximate notion using ranges.
+Given a spanlist <code>L1</code>, the range of <code>L1</code> (<code>range(L1)</code>) is the smallest span <code>s</code>
+such that <code>for all  s1 in L1: s contains s1</code>. We define relations of overlapping, containment, identity and
+crossing on ranges:
+
+<pre>
+L1 range-overlaps L2 iff range(L1) overlaps range(L2)
+
+L1 range-contains L2 iff range(L1) contains range(L2)
+
+L1 is range-contained by L2 iff range(L1) is contained by range(L2)
+
+L1 is range-identical to L2 iff range(L1) is identical to range(L2)
+
+L1 range-crosses L2 iff range(L1) crosses range(L2)
+</pre>
+
+All that remains is to make these relations available via XPath. This is achieved by the following function:
+
+<pre>
+boolean comp-splist(string comparisonMethod, node-set setOfL2s, string flags?)
+</pre>
+
+
+The splist <code>L1</code> is given by the context node. We will explain the optional use of flags in what follows.
+The node-set <code>setOfL2s</code> should be a set of Elements, which are relations, arguments and supplementary
+information. This function will be true iff there exists <code>L2 in setOfL2s</code> such that
+<code>L1 comparisonMethod L2</code> holds. There are two kinds of flags used:
+
+<ul>
+<li> Flags which change the way a node is associated with a spanlist </li>
+<li> Flags which exclude nodes based on other comparison methods </li>
+</ul>
+</p>
+
+<p>
+For Arg1, Sup1 and Sup2 there is a unique way
+to determine the spanlist, i.e., the text selected by the annotator. For relations there are two 
+spanlists that one might want to associate: 
+
+<ul>
+<li> the spanlist of the connective (for a lexicalized relation), or </li> 
+<li> the spanlist of the connective (if any) together with its arguments (the union interpretation) </li>
+</ul>
+
+Similarly, for Arg2 of a relation there are two spanlists that one might want to associate:
+
+<ul>
+<li> the spanlist of the text selected, or </li> 
+<li> the spanlist of the connective (if any) together with the text selected (the union interpretation) </li>
+</ul>
+
+We use the flags <code>uc</code> 
+(union interpretaion of context) and <code>uns</code> (union interpretation of node-set)
+to shift to the union interpretation for <code>L1</code> and <code>L2</code> respectively.
+</p>
+
+<p> We now explain the various pieces with examples from 
+<a href="http://www.seas.upenn.edu/~pdtb/papers/lee-etal-tlt06.pdf">Lee et al.</a> The queries below are 
+simplified versions of queries in the paper, and several flags need to be used to
+improve the quality of the selection. Several variants can be found in the scripts that come with
+<a href="pdtbuser.zip"> the user distribution</a>. 
+</p>
+
+<p>
+The following query selects relations which
+share an argument exactly with another relation:
+
+<pre>
+Shared Argument:
+
+>::*[>::*[is-arg() and 
+     comp-splist('identity',/>>::*[is-arg()])]]
+</pre>
+
+There are no flags in use here. For the function <code>comp-splist('identity',/>>::*[is-arg()])</code> the context
+splist <code>L1</code> is given by the argument of some relation, and it checks if the spanlist <code>L2</code> of
+some node in <code>/>>::*[is-arg()]</code> (which is the set of arguments in the same discourse) is such that
+<code>L1 is identical to L2</code>. A node will never be compared to itself, so the trivial case (here) is
+excluded.
+</p>
+
+<p>
+The following query selects relations which are contained in an argument of another relation (both the container and
+containee are selected):
+
+<pre>
+Nested Relation:
+
+>::*[comp-splist('is-contained-by',/>>::*[is-arg()], 'uc') or 
+     >::*[is-arg() and 
+          comp-splist('contains', />>::*[is-rel()], 'uns')]]"
+</pre>
+
+The first disjunct <code> comp-splist('is-contained-by',/>::*[is-arg()], 'uc')</code> selects the contained relation.
+<code>L1</code> is the spanlist for the relation and the flag <code>uc</code> 
+tells us that the spanlist should
+contain the spanlists of the connective and the arguments.<code> L2</code> is given by <code>/>::*[is-arg()]</code>
+is an argument of some relation in the discourse such that <code>L1 is-contained-by L2</code>. The second disjunct
+is responsible for selecting the container and is symmetric to the first part.
+</p>
+
+<p>
+The following query selects relations which have an argument properly contained inside an argument of another
+relation, both the relevant relations are selected and the identical argument cases are excluded.
+
+<pre>
+Properly Contained Argument:
+
+>::*[>::*[is-arg() and 
+          (comp-splist('contains',/>>::*[is-arg()],'ei') or 
+           comp-splist('is-contained-by',/>>::*[is-arg()],'ei'))
+          ]]
+
+</pre>
+
+As before, the disjuncts are symmetrical and the flag <code>ei</code> stands for <code>exclude identical</code>.
+
+</p>
+
+<p> 
+
+The following query selects what <a href="http://www.seas.upenn.edu/~pdtb/papers/lee-etal-tlt06.pdf">Lee et al.</a> 
+call pure crossing, where an argument of a connective appears
+interspersed with material from another relation with no overlap. As before, both relevant relations are
+selected.
+
+<pre>
+Pure Crossing:
+
+>::*[comp-splist('ranges-crosses',/>>::*[is-rel()],'uc-uns-eo')]
+</pre>
+
+The flag <code>eo</code> stands for <code>exclude overlap</code>, and the flags <code>uc</code> and
+<code>uns</code> are as before.
+</p>
+
+<p>
+Finally, the following query selects relations with a partial overlap of arguments.
+
+<pre>
+Partial Overlap:
+
+>::*[>::*[is-arg() and comp-splist('overlaps',/>>::*[is-arg()],'ec')]]
+</pre>
+
+The flag <code>ec</code> stands for <code>exclude containment</code>, and there is no disjunction
+because overlapping (like identity) is symmetric. The available comparison methods are as
+follows:
+
+<ul>
+<li> overlaps </li>
+<li> contains </li>
+<li> is-contained-by </li>
+<li> identity </li>
+<li> ranges-overlaps</li>
+<li> ranges-contains</li>
+<li> is-range-contained-by </li>
+<li> range-identity </li>
+<li> range-crosses </li>
+</ul>
+
+The following flags are available:
+
+<ul>
+<li> uc - Union interpretation of context</li>
+<li> uns - Union interpretation of node-set </li>
+<li> eo - Exclude overlap </li>
+<li> ec - Exclude containment </li>
+<li> ei - Exclude identity </li>
+<li> ero - Exclude range overlap </li>
+<li> erc - Exclude range contains </li>
+<li> eri - Exclude range identity </li>
+<li> erx - Exclude range crosses </li>
+<li> esp - Exclude siblings and parents from being compared against each other </li>
+<li> emp - Exclude if the parents of the context and the node-set match</li>
+<li> emcp - Exclude if the parent of the context matches the node in the node-set </li>
+<li> emnsp - Exclude if the context node matches the parent of the node in the node-set</li>
+</ul>
+
+The flags <code>emp, emcp and emnsp</code> exclude cases only if the parent is a relation. While
+checking if a parent or parents match: the flags <code>eo, ec, ei, ero, erc, eri and erx</code> are
+negated, i.e., the parent matches if there is overlap, containment, identity, range-overlap, range-containment, 
+range-identity and range crossing.
+
+</p>
+
+<p>
+The queries written in the form above will be slightly slow. They can be made two to three times
+faster by <a href="#cache"> caching subexpressions </a>.
+</p>
+
+<a id="splistsize"><EM> Span List Size </EM></a>
+
+<p> 
+
+<pre>
+number splist-size()
+</pre>
+
+This evaluates to the number of disjoint spans in the context spanlist. For relations this is defined
+as the spanlist of the connective (if any) and <code>-1</code> otherwise. The following query selects
+the explict relations with discontinuous connectives, such as, "either..or".
+
+<pre>
+>::*[splist-size() > 1]
+</pre>
+
+
+<a id="delimtext"><EM> Text Delimiting </EM></a>
+
+<p>
+
+<pre>
+string delim-text()
+</pre>
+
+If the context node has multiple spans, then the spans are concatenated
+with <code>####</code> as delimiter. This is perhaps useful in
+conjunction with the <code> regexp</code> function to search for
+text patterns within a span. The same effect as the previous query can be
+achieved using:
+
+<pre>
+>::*[contains(delim-text(),'####')]
+</pre>
+
+<a id="cache"><B>Caching Subexpressions</B></a>
+
+<p>
+We are often interested in writing queries that select relations based on  some other
+relations in the document. Consider the simple example of selecting "if" which overlaps
+with "otherwise".
+
+<pre>
+>::*[@connHead='if' and comp-splist('overlaps',/>>::*[@connHead='otherwise'],'uc-uns')]
+</pre>
+
+The subexpression <code>/>>:*[@connHead='otherwise']</code> is constant for a given discourse, but
+the XPath engine has no way to determine this. This results in evaluating the subexpression everytime
+<code>comp-splist</code> is called. This can make things quite slow. We would like the ability to
+somehow cache expressions when we know they are constant. Something like:
+
+<pre>
+>::*[@connHead='if' and comp-splist('overlaps',cache('/>>::*[@connHead='otherwise']'),'uc-uns')]
+</pre>
+
+However, the subexpression <code>cache('/>>:*[@connHead='otherwise']')</code> has embedded quotes which
+is a preprocessing nightmare. For this reason, inside the <code> cache </code> function, quotes should
+be replaced by curly braces, like so:
+
+<pre>
+>::*[@connHead='if' and comp-splist('overlaps',cache({/>>::*[@connHead={otherwise}]}),'uc-uns')]
+</pre>
+
+Using this for the queries discussed <a href="#spanfun">previously</a> makes them two to three times
+faster. Note that caching should be used only if the embedded XPath is constant for a given discourse, i.e., 
+independent of context. If the embedded query depends, for example, on being the sibling of the context node, caching
+may give errors. The following are not equivalent:
+
+<pre>
+>>::Arg1[comp-splist('overlaps',$>::Arg2)] (Selects Arg1 which overlaps with Arg2)
+
+
+>>::Arg1[comp-splist('overlaps',cache({$>::Arg2}))] (Selects nothing)
+</pre>
+
+The second query attempts to select Arg1 nodes which overlap with Arg2 nodes which are following siblings
+of the RelationList (which has no siblings as it is the root of the tree).
+
+</p>
+
+
+<a id="expconngroup"><B>Grouping Explicit Connectives</B></a>
+<p>
+There are three functions for grouping explicit connectives into coarse-grained categories - subordinating conjunctions, 
+coordinating conjunctions and adverbials. It is not always clear which category a connective belongs in, which is why
+this information does not appear in the files. However, we have found this distinction useful in studying the properties
+of connectives. The functions are as follows:
+</p>
+
+<p>
+<em>Subordinating Conjunctions</em>
+
+<pre>
+boolean is-sc()
+</pre>
+
+Returns true iff the context node is an explicit relation and the <code>connHead</code> attribute matches the regex:
+
+<pre>
+.*(because|although|even though|when|so that|(^|\s)while|if|since|unless|after|until|
+   whereas|as$|as though|^till|once|for$|before|lest|except|else|now that).*
+</pre>
+</p>
+
+<p>
+<em>Coordinating Conjunctions</em>
+
+<pre>
+boolean is-cc()
+</pre>
+
+Returns true iff the context node is an explicit relation and the <code>connHead</code> attribute matches the regex:
+
+<pre>
+.*(and|or|but|nor)
+</pre>
+</p>
+
+<p>
+<em>Adverbials</em>
+
+<pre>
+boolean is-adv()
+</pre>
+
+Returns true iff the context node is an explicit relation and the <code>connHead</code> attribute matches the regex:
+
+<pre>
+.*(instead|otherwise|therefore|as a result|nevertheless|^then|on the other hand|however|in fact|
+   further|furthermore|indeed|for example|^though|yet|so|on the contrary|conversely|consequently|
+   besides|nonetheless|afterwards|finally|by contrast|in sum|simultaneously|in addition|accordingly|
+   thus|overall|in the meantime|meanwhile|in other words|still|previously|as an alternative|specifically|
+   in particular|hence|earlier|later|regardless|for instance|in the end|on the other side|by comparison|
+   alternatively|in short|rather|ultimately|moreover|likewise|next|similarly|in contrast|thereafter|by then|
+   additionally|also|on the whole|plus as well|separately|in turn).*
+</pre>
+</p>
+
+
+
+
+
+</BODY>
+
+</HTML>

@@ -1,0 +1,14 @@
+edu.upenn.cis.pdtb
+edu.upenn.cis.pdtb.graphics
+edu.upenn.cis.pdtb.lexyacc
+edu.upenn.cis.pdtb.util
+edu.upenn.cis.pdtb.xpath
+edu.upenn.cis.ptb
+edu.upenn.cis.ptb.lexyacc
+edu.upenn.cis.ptb.standoff
+edu.upenn.cis.ptb.standoff.lexyacc
+edu.upenn.cis.ptb.standoff.util
+edu.upenn.cis.ptb.util
+edu.upenn.cis.ptb.xpath
+org.annotation.agschema.graphics.vtree
+org.annotation.agschema.graphics.vtree.ui

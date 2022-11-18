@@ -1,0 +1,74 @@
+#!/usr/bin/perl
+
+use File::Basename;
+
+#################################################################
+## This program is provided under the Common Public
+## License 1.0. The full license is at:
+##
+## htDocs/license
+##
+## It is important to note that:
+##
+## THIS PROGRAM IS PROVIDED ON AN "AS IS" BASIS, WITHOUT
+## WARRANTIES OR CONDITIONS OF ANY KIND, EITHER EXPRESS OR
+## IMPLIED INCLUDING, WITHOUT LIMITATION, ANY WARRANTIES OR
+## CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR
+## FITNESS FOR A PARTICULAR PURPOSE. Each Recipient is solely
+## responsible for determining the appropriateness of using and
+## distributing the Program and assumes all risks associated with
+## its exercise of rights under this Agreement, including but not
+## limited to the risks and costs of program errors, compliance
+## with applicable laws, damage to or loss of data, programs or
+## equipment, and unavailability or interruption of operations.
+##################################################################
+
+## Script which runs a query on the PDTB
+## Edit the paths to reflect actual system locations
+## For each run you will need to supply the output directory and the XPath 
+## expression. Use an absolute path for the output directory, otherwise
+## it will be created under the PDTBUser directory.
+
+if($#ARGV != 1){
+  die "Usage: run_query <OutputRoot> <XPathExpression>\n";
+}
+
+$OutputRoot = $ARGV[0];
+$XPathExpression = $ARGV[1];
+
+## Edit this to point to RawRoot
+$RawRoot = "Corpora/PTB/raw/wsj";
+
+## Edit this to point to PtbRoot
+$PtbRoot = "Corpora/PTB/combined/wsj";
+
+## Edit this to point to PdtbRoot
+$PdtbRoot = "Corpora/pdtb/wsj";
+
+## Change to the directory the
+## script is in, which should be
+## the PDTBUser directory.
+$PdtbUserDir = dirname($0);
+chdir($PdtbUserDir);
+
+if(-e "pdtb.jar"){
+   $ClassPath = "pdtb.jar";
+}
+elsif(-e "pdtbbrowser.jnlp"){
+   ## This is for testing during development.
+   ## Should not be reached from the PDTBUser
+   ## distribution.
+   $ClassPath="src:lib/JavaCup/java-cup.jar:lib/JFlex/lib/JFlex.jar:lib/Jaxen/jaxen.jar:lib/GetOpt/getopt.jar:lib/PTBAPI/src:lib/VerticalTrees/src";
+ }
+else{
+   die "Please place this in the PDTBUser directory";
+}
+
+$Cmd = "java -Xmx300M -Xms300M -classpath \"" . $ClassPath. "\" edu.upenn.cis.pdtb.xpath.PDTBXPath -r $RawRoot -p $PtbRoot -d $PdtbRoot -o $OutputRoot -x \"". $XPathExpression . "\" -c -b -e";
+
+print "Running: " . $Cmd . "\n";
+
+system($Cmd);
+
+
+
